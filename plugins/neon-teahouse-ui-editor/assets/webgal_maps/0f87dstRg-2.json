@@ -1,0 +1,108 @@
+{
+  "gameName": "回到过去，但是高松灯",
+  "gameKey": "0f87dstRg",
+  "gameRoot": "D:/邦邦二创/newwebgal/public/games/爱祥/爱祥/nope",
+  "elements": {
+    "dialoguePanelBg": {
+      "file": "game/template/Stage/TextBox/textbox.scss",
+      "selector": ".TextBox_main",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "bottom",
+        "widthPercent": "width",
+        "heightPercent": "min-height"
+      }
+    },
+    "dialoguePanelRoot": {
+      "file": "game/template/Stage/TextBox/textbox.scss",
+      "selector": ".TextBox_main",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "bottom",
+        "widthPercent": "width",
+        "heightPercent": "min-height"
+      }
+    },
+    "speakerNameTxt": {
+      "file": "game/template/Stage/TextBox/textbox.scss",
+      "selector": ".TextBox_showName",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "min-width",
+        "heightPercent": "height"
+      }
+    },
+    "dialogueContentTxt": {
+      "file": "game/template/Stage/TextBox/textbox.scss",
+      "selector": ".text",
+      "properties": {
+        "textColor": "color",
+        "fontSizePx": "font-size"
+      }
+    },
+    "dialogueChoiceABtn": {
+      "file": "game/userStyleSheet.css",
+      "selector": ".Choose_item:nth-child(1)",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    },
+    "choiceBtn0": {
+      "file": "game/userStyleSheet.css",
+      "selector": ".Choose_item:nth-child(1)",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    },
+    "dialogueChoiceBBtn": {
+      "file": "game/userStyleSheet.css",
+      "selector": ".Choose_item:nth-child(2)",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    },
+    "choiceBtn1": {
+      "file": "game/userStyleSheet.css",
+      "selector": ".Choose_item:nth-child(2)",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    }
+  },
+  "_selectorsByFile": {},
+  "_selectors": []
+}
