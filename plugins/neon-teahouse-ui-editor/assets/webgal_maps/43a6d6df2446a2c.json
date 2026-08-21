@@ -1,0 +1,160 @@
+{
+  "gameName": "新的游戏",
+  "gameKey": "43a6d6df2446a2c",
+  "gameRoot": "D:/邦邦二创/newwebgal/public/games/新的游戏",
+  "elements": {
+    "dialoguePanelBg": {
+      "file": "game/template/Stage/TextBox/textbox.scss",
+      "selector": ".TextBox_main",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "bottom",
+        "widthPercent": "width",
+        "heightPercent": "min-height"
+      }
+    },
+    "dialoguePanelRoot": {
+      "file": "game/template/Stage/TextBox/textbox.scss",
+      "selector": ".TextBox_main",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "bottom",
+        "widthPercent": "width",
+        "heightPercent": "min-height"
+      }
+    },
+    "speakerNameTxt": {
+      "file": "game/template/Stage/TextBox/textbox.scss",
+      "selector": ".TextBox_showName",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "min-width",
+        "heightPercent": "height"
+      }
+    },
+    "dialogueContentTxt": {
+      "file": "game/template/Stage/TextBox/textbox.scss",
+      "selector": ".text",
+      "properties": {
+        "textColor": "color",
+        "fontSizePx": "font-size"
+      }
+    },
+    "dialogueChoiceABtn": {
+      "file": "game/userStyleSheet.css",
+      "selector": ".Choose_item:nth-child(1)",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    },
+    "choiceBtn0": {
+      "file": "game/userStyleSheet.css",
+      "selector": ".Choose_item:nth-child(1)",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    },
+    "dialogueChoiceBBtn": {
+      "file": "game/userStyleSheet.css",
+      "selector": ".Choose_item:nth-child(2)",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    },
+    "choiceBtn1": {
+      "file": "game/userStyleSheet.css",
+      "selector": ".Choose_item:nth-child(2)",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    }
+  },
+  "_selectorsByFile": {
+    "game/template/Stage/TextBox/textbox.scss": [
+      ".TextBox_Background",
+      ".TextBox_ShowName_Background",
+      ".TextBox_main",
+      ".TextBox_main_miniavatarOff",
+      ".TextBox_showName",
+      ".TextBox_textElement_Settled",
+      ".TextBox_textElement_start",
+      ".inner",
+      ".innerName",
+      ".miniAvatarContainer",
+      ".miniAvatarImg",
+      ".nameContainer",
+      ".outer",
+      ".outerName",
+      ".text",
+      ".zhanwei"
+    ],
+    "game/template/UI/Title/title.scss": [
+      ".Title_backup_background",
+      ".Title_button",
+      ".Title_buttonList",
+      ".Title_button_text",
+      ".Title_main"
+    ],
+    "game/userStyleSheet.css": [
+      ".Choose_item"
+    ]
+  },
+  "_selectors": [
+    ".Choose_item",
+    ".TextBox_Background",
+    ".TextBox_ShowName_Background",
+    ".TextBox_main",
+    ".TextBox_main_miniavatarOff",
+    ".TextBox_showName",
+    ".TextBox_textElement_Settled",
+    ".TextBox_textElement_start",
+    ".Title_backup_background",
+    ".Title_button",
+    ".Title_buttonList",
+    ".Title_button_text",
+    ".Title_main",
+    ".inner",
+    ".innerName",
+    ".miniAvatarContainer",
+    ".miniAvatarImg",
+    ".nameContainer",
+    ".outer",
+    ".outerName",
+    ".text",
+    ".zhanwei"
+  ]
+}
