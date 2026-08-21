@@ -1,0 +1,22 @@
+{
+  "engine": "godot",
+  "uiFilePatterns": [
+    "**/*.tscn",
+    "**/*.tres",
+    "**/*.theme"
+  ],
+  "elements": {
+    "dialoguePanelRoot": {
+      "file": "ui/dialogue.tscn",
+      "kind": "godot",
+      "key": "rect_position",
+      "format": "Vector2({x}, {y})",
+      "properties": {
+        "xPercent": "x",
+        "yPercent": "y",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    }
+  }
+}
