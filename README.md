@@ -21,6 +21,18 @@
 - 支持把审核结果应用到 WebGAL 的文本型样式文件，并自动备份。
 - 支持扫描 Unity、Godot、Cocos 等引擎项目，导出 AIToUGUI 兼容数据。
 
+## Git marketplace 安装
+
+仓库根目录已提供 `.agents/plugins/marketplace.json`，可以直接通过 Codex 安装：
+
+```bash
+codex plugin marketplace add xez65/11 --ref main
+codex plugin add neon-teahouse-ui-editor@neon-teahouse-team
+codex plugin list
+```
+
+安装后请完全退出并重新启动 Codex，让新技能和脚本完整加载。
+
 ## 手动安装
 
 1. 下载本仓库中的 `plugins/neon-teahouse-ui-editor` 目录。
