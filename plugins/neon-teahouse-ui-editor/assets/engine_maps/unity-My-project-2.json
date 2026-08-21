@@ -1,0 +1,23 @@
+{
+  "engine": "unity",
+  "projectRoot": "C:/Users/Administrator/My project (2)",
+  "uiFiles": [],
+  "unsupported": false,
+  "note": "",
+  "elements": {
+    "dialoguePanelRoot": {
+      "file": "Assets/UI/Dialogue.uss",
+      "kind": "css",
+      "selector": ".DialoguePanel",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    }
+  }
+}
