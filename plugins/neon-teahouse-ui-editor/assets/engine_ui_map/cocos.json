@@ -1,0 +1,18 @@
+{
+  "engine": "cocos",
+  "uiFilePatterns": [
+    "assets/**/*.scene",
+    "assets/**/*.prefab"
+  ],
+  "elements": {
+    "dialoguePanelRoot": {
+      "file": "assets/dialogue.prefab",
+      "kind": "json",
+      "jsonPath": "node.position",
+      "properties": {
+        "xPercent": "x",
+        "yPercent": "y"
+      }
+    }
+  }
+}
