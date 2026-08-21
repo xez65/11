@@ -1,0 +1,16 @@
+{
+  "games": [
+    {
+      "gameRoot": "D:/邦邦二创/newwebgal/public/games/新的游戏",
+      "mappingFile": "43a6d6df2446a2c.json"
+    },
+    {
+      "gameRoot": "D:/邦邦二创/newwebgal/public/games/爱祥/爱祥",
+      "mappingFile": "0f87dstRg.json"
+    },
+    {
+      "gameRoot": "D:/邦邦二创/newwebgal/public/games/爱祥/爱祥/nope",
+      "mappingFile": "0f87dstRg-2.json"
+    }
+  ]
+}
