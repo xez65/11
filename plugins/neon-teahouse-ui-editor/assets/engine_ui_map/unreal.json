@@ -1,0 +1,9 @@
+{
+  "engine": "unreal",
+  "uiFilePatterns": [
+    "Content/**/*.uasset"
+  ],
+  "unsupported": true,
+  "note": "Unreal UMG .uasset files are binary. This plugin can scan and list them, but automatic text patching is not supported.",
+  "elements": {}
+}
