@@ -1,0 +1,2885 @@
+<div id="neon-ui-review-demo">
+  <style>
+    #neon-ui-review-demo {
+      --nur-shell: light-dark(#f3f5f7, #101318);
+      --nur-panel: light-dark(#ffffff, #181c22);
+      --nur-panel-2: light-dark(#e8ebef, #20252d);
+      --nur-line: light-dark(#c8ced6, #343b46);
+      --nur-text: light-dark(#1b222c, #f2f5f8);
+      --nur-muted: light-dark(#5f6875, #a7b0bd);
+      --nur-active: light-dark(#116675, #79e6ef);
+      --nur-active-strong: light-dark(#0d4c58, #b6f8fc);
+      --nur-warn: light-dark(#8a5a11, #f0c56d);
+      width: 100%;
+      color: var(--nur-text);
+      color-scheme: light dark;
+      font-family: Inter, "Microsoft YaHei", system-ui, sans-serif;
+    }
+
+    #neon-ui-review-demo * {
+      box-sizing: border-box;
+      letter-spacing: 0;
+    }
+
+    #neon-ui-review-demo button,
+    #neon-ui-review-demo input,
+    #neon-ui-review-demo textarea {
+      font: inherit;
+    }
+
+    #neon-ui-review-demo .nur-shell {
+      overflow: hidden;
+      border: 1px solid var(--nur-line);
+      border-radius: 6px;
+      background: var(--nur-shell);
+      box-shadow: 0 18px 45px light-dark(rgba(26, 34, 44, 0.14), rgba(0, 0, 0, 0.32));
+    }
+
+    #neon-ui-review-demo .nur-topbar {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--nur-line);
+      background: var(--nur-panel);
+    }
+
+    #neon-ui-review-demo .nur-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      margin-right: auto;
+    }
+
+    #neon-ui-review-demo .nur-brand-mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid var(--nur-active);
+      border-radius: 4px;
+      color: var(--nur-active-strong);
+      background: light-dark(rgba(17, 102, 117, 0.08), rgba(121, 230, 239, 0.08));
+    }
+
+    #neon-ui-review-demo .nur-brand-copy {
+      min-width: 0;
+    }
+
+    #neon-ui-review-demo .nur-brand-copy strong,
+    #neon-ui-review-demo .nur-brand-copy span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-brand-copy strong {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    #neon-ui-review-demo .nur-brand-copy span {
+      margin-top: 1px;
+      color: var(--nur-muted);
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 74px;
+      color: var(--nur-muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--nur-warn);
+    }
+
+    #neon-ui-review-demo .nur-status[data-state="synced"]::before {
+      background: var(--nur-active);
+    }
+
+    #neon-ui-review-demo .nur-icon-button,
+    #neon-ui-review-demo .nur-action-button {
+      min-height: 32px;
+      border: 1px solid var(--nur-line);
+      border-radius: 4px;
+      color: var(--nur-text);
+      background: var(--nur-panel);
+      cursor: pointer;
+    }
+
+    #neon-ui-review-demo .nur-icon-button {
+      width: 32px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+
+    #neon-ui-review-demo .nur-action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 0 11px;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-action-button[data-primary="true"] {
+      border-color: var(--nur-active);
+      color: light-dark(#ffffff, #071114);
+      background: var(--nur-active);
+    }
+
+    #neon-ui-review-demo button:hover {
+      border-color: var(--nur-active);
+    }
+
+    #neon-ui-review-demo button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    #neon-ui-review-demo .nur-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 242px;
+      min-height: 448px;
+    }
+
+    #neon-ui-review-demo .nur-stage-region {
+      min-width: 0;
+      padding: 10px;
+      background: var(--nur-panel-2);
+    }
+
+    #neon-ui-review-demo .nur-stagebar {
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--nur-muted);
+      font-size: 12px;
+    }
+
+    #neon-ui-review-demo .nur-stagebar strong {
+      color: var(--nur-text);
+      font-weight: 500;
+    }
+
+    #neon-ui-review-demo .nur-stagebar .nur-stage-meta {
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-canvas-frame {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      border: 1px solid #36414c;
+      background: #070b0f;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    #neon-ui-review-demo .nur-game-canvas {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      color: #eaf8fa;
+      background: #0a1117;
+      container-type: inline-size;
+    }
+
+    #neon-ui-review-demo .nur-scene-bg,
+    #neon-ui-review-demo .nur-scene-shade {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #neon-ui-review-demo .nur-scene-bg {
+      object-fit: cover;
+      opacity: 0.72;
+    }
+
+    #neon-ui-review-demo .nur-scene-shade {
+      background: rgba(3, 8, 12, 0.38);
+      pointer-events: none;
+    }
+
+    #neon-ui-review-demo .nur-editable {
+      position: absolute;
+      cursor: pointer;
+      transition: outline-color 120ms ease, box-shadow 120ms ease;
+    }
+
+    #neon-ui-review-demo .nur-editable:hover {
+      outline: 1px dashed rgba(121, 230, 239, 0.72);
+      outline-offset: 2px;
+    }
+
+    #neon-ui-review-demo .nur-editable[data-selected="true"] {
+      z-index: 20;
+      outline: 2px solid #79e6ef;
+      outline-offset: 3px;
+      box-shadow: 0 0 0 5px rgba(121, 230, 239, 0.13);
+    }
+
+    #neon-ui-review-demo .nur-character {
+      object-fit: contain;
+      object-position: center bottom;
+      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.5));
+    }
+
+    #neon-ui-review-demo .nur-day-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(121, 230, 239, 0.58);
+      border-radius: 3px;
+      color: #dffcff;
+      background: rgba(5, 20, 26, 0.84);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: clamp(7px, 1.6cqw, 12px);
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-dialogue-panel {
+      border: 1px solid rgba(121, 230, 239, 0.7);
+      border-radius: 5px;
+      background: rgba(4, 13, 19, 0.91);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
+    }
+
+    #neon-ui-review-demo .nur-speaker {
+      display: flex;
+      align-items: center;
+      color: #ffd77a;
+      font-size: clamp(8px, 1.8cqw, 14px);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-dialogue-copy {
+      display: flex;
+      align-items: flex-start;
+      color: #f0f7f8;
+      font-size: clamp(8px, 1.9cqw, 15px);
+      line-height: 1.52;
+      overflow: hidden;
+    }
+
+    #neon-ui-review-demo .nur-choice {
+      display: flex;
+      align-items: center;
+      padding: 0 4%;
+      border: 1px solid rgba(237, 111, 186, 0.62);
+      border-radius: 3px;
+      color: #ffe8f5;
+      background: rgba(45, 14, 34, 0.78);
+      font-size: clamp(7px, 1.55cqw, 12px);
+      line-height: 1.25;
+      overflow: hidden;
+    }
+
+    #neon-ui-review-demo .nur-choice::before {
+      content: "◇";
+      flex: 0 0 auto;
+      margin-right: 5px;
+      color: #ff9ed5;
+    }
+
+    #neon-ui-review-demo .nur-hud-bar {
+      border: 1px solid rgba(121, 230, 239, 0.48);
+      background: rgba(4, 13, 19, 0.88);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.36);
+    }
+
+    #neon-ui-review-demo .nur-hud-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(121, 230, 239, 0.42);
+      color: #dffcff;
+      background: rgba(5, 20, 26, 0.82);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: clamp(7px, 1.45cqw, 12px);
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-page-title {
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(121, 230, 239, 0.58);
+      color: #dffcff;
+      background: rgba(5, 20, 26, 0.86);
+      font-size: clamp(10px, 2cqw, 18px);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-recipe-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+      border: 1px solid rgba(237, 111, 186, 0.62);
+      border-radius: 4px;
+      color: #ffe8f5;
+      background: rgba(45, 14, 34, 0.78);
+      font-size: clamp(7px, 1.4cqw, 11px);
+      line-height: 1.3;
+      overflow: hidden;
+    }
+
+    #neon-ui-review-demo .nur-body-copy {
+      display: flex;
+      align-items: flex-start;
+      color: #f0f7f8;
+      font-size: clamp(8px, 1.55cqw, 13px);
+      line-height: 1.5;
+      overflow: hidden;
+    }
+
+    #neon-ui-review-demo .nur-end-quote {
+      display: flex;
+      align-items: center;
+      border-left: 3px solid #ffd77a;
+      color: #ffe3a1;
+      background: rgba(20, 14, 4, 0.48);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: clamp(7px, 1.35cqw, 11px);
+      line-height: 1.4;
+      overflow: hidden;
+    }
+
+    #neon-ui-review-demo .nur-inspector {
+      min-width: 0;
+      border-left: 1px solid var(--nur-line);
+      background: var(--nur-panel);
+    }
+
+    #neon-ui-review-demo .nur-inspector-header {
+      padding: 11px 12px 10px;
+      border-bottom: 1px solid var(--nur-line);
+    }
+
+    #neon-ui-review-demo .nur-inspector-kicker {
+      color: var(--nur-muted);
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-inspector-header strong {
+      display: block;
+      margin-top: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--nur-active-strong);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-inspector-section {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--nur-line);
+    }
+
+    #neon-ui-review-demo .nur-section-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 9px;
+      color: var(--nur-text);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    #neon-ui-review-demo .nur-field {
+      display: block;
+      margin-bottom: 9px;
+    }
+
+    #neon-ui-review-demo .nur-field:last-child {
+      margin-bottom: 0;
+    }
+
+    #neon-ui-review-demo .nur-field > span,
+    #neon-ui-review-demo .nur-mini-field > span {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--nur-muted);
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-field textarea,
+    #neon-ui-review-demo .nur-field input[type="text"],
+    #neon-ui-review-demo .nur-mini-field input[type="number"] {
+      width: 100%;
+      border: 1px solid var(--nur-line);
+      border-radius: 3px;
+      color: var(--nur-text);
+      background: var(--nur-shell);
+    }
+
+    #neon-ui-review-demo .nur-field textarea {
+      min-height: 66px;
+      resize: vertical;
+      padding: 7px 8px;
+      line-height: 1.45;
+    }
+
+    #neon-ui-review-demo .nur-field input[type="text"],
+    #neon-ui-review-demo .nur-mini-field input[type="number"] {
+      height: 30px;
+      padding: 0 7px;
+    }
+
+    #neon-ui-review-demo .nur-field input:disabled,
+    #neon-ui-review-demo .nur-field textarea:disabled {
+      opacity: 0.55;
+    }
+
+    #neon-ui-review-demo .nur-four-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    #neon-ui-review-demo .nur-two-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    #neon-ui-review-demo .nur-color-field {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    #neon-ui-review-demo .nur-color-field input[type="color"] {
+      width: 34px;
+      height: 30px;
+      flex: 0 0 auto;
+      padding: 2px;
+      border: 1px solid var(--nur-line);
+      border-radius: 3px;
+      background: var(--nur-shell);
+    }
+
+    #neon-ui-review-demo .nur-color-field code {
+      overflow: hidden;
+      color: var(--nur-muted);
+      font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 30px;
+      color: var(--nur-text);
+      font-size: 12px;
+    }
+
+    #neon-ui-review-demo .nur-toggle-row input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--nur-active);
+    }
+
+    #neon-ui-review-demo .nur-meta-row {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 7px;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-meta-row:last-child {
+      margin-bottom: 0;
+    }
+
+    #neon-ui-review-demo .nur-meta-row span {
+      color: var(--nur-muted);
+    }
+
+    #neon-ui-review-demo .nur-meta-row code {
+      overflow: hidden;
+      color: var(--nur-text);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #neon-ui-review-demo .nur-inspector-footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 11px 12px;
+    }
+
+    #neon-ui-review-demo .nur-inspector-footer .nur-action-button {
+      width: 100%;
+      padding: 0 7px;
+      font-size: 12px;
+    }
+
+    #neon-ui-review-demo .nur-stage-note {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      width: 100%;
+      max-width: 760px;
+      min-height: 34px;
+      margin: 8px auto 0;
+      padding: 7px 9px;
+      border-left: 2px solid var(--nur-active);
+      color: var(--nur-muted);
+      background: var(--nur-panel);
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-stage-note strong {
+      color: var(--nur-text);
+      font-weight: 500;
+    }
+
+    #neon-ui-review-demo .nur-tool-strip {
+      display: grid;
+      gap: 8px;
+      width: 100%;
+      max-width: 760px;
+      margin: 8px auto 0;
+    }
+
+    #neon-ui-review-demo .nur-tool-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 8px;
+      color: var(--nur-muted);
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-tool-row .nur-section-title {
+      margin: 0;
+      min-width: 52px;
+    }
+
+    #neon-ui-review-demo .nur-tool-output {
+      display: grid;
+      gap: 4px;
+      padding: 8px 9px;
+      border-left: 2px solid var(--nur-warn);
+      color: var(--nur-text);
+      background: var(--nur-panel);
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-tool-output[hidden] {
+      display: none;
+    }
+
+    #neon-ui-review-demo .nur-tool-output strong {
+      color: var(--nur-warn);
+      font-weight: 500;
+    }
+
+    #neon-ui-review-demo .nur-matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    #neon-ui-review-demo .nur-matrix-cell {
+      min-height: 42px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      border: 1px solid var(--nur-line);
+      border-radius: 4px;
+      padding: 5px;
+      color: var(--nur-muted);
+      background: var(--nur-shell);
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-matrix-cell[data-level="changed"] {
+      border-color: var(--nur-warn);
+      color: var(--nur-warn);
+      background: light-dark(rgba(138, 90, 17, 0.08), rgba(240, 197, 109, 0.08));
+    }
+
+    #neon-ui-review-demo .nur-matrix-cell[data-level="same"] {
+      border-color: var(--nur-active);
+      color: var(--nur-active-strong);
+      background: light-dark(rgba(17, 102, 117, 0.08), rgba(121, 230, 239, 0.08));
+    }
+
+    #neon-ui-review-demo .nur-matrix-cell small {
+      color: var(--nur-muted);
+      font-size: 10px;
+    }
+
+    #neon-ui-review-demo .nur-validation-summary {
+      color: var(--nur-muted);
+    }
+
+    #neon-ui-review-demo .nur-validation-summary[data-state="ok"] {
+      color: var(--nur-active);
+    }
+
+    #neon-ui-review-demo .nur-validation-summary[data-state="error"] {
+      color: var(--nur-warn);
+    }
+
+    #neon-ui-review-demo .nur-page-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto 8px;
+    }
+
+    #neon-ui-review-demo .nur-page-tab {
+      min-height: 30px;
+      border: 1px solid var(--nur-line);
+      border-radius: 4px;
+      padding: 0 10px;
+      color: var(--nur-muted);
+      background: var(--nur-panel);
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    #neon-ui-review-demo .nur-page-tab[aria-selected="true"] {
+      border-color: var(--nur-active);
+      color: var(--nur-active-strong);
+      background: light-dark(rgba(17, 102, 117, 0.09), rgba(121, 230, 239, 0.09));
+    }
+
+    #neon-ui-review-demo .nur-archive-list {
+      display: grid;
+      gap: 4px;
+      max-height: 132px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    #neon-ui-review-demo .nur-archive-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 30px;
+      padding: 4px 6px 4px 9px;
+      border: 1px solid var(--nur-line);
+      border-radius: 4px;
+      color: var(--nur-muted);
+      background: var(--nur-panel);
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-archive-row time {
+      color: var(--nur-text);
+    }
+
+    #neon-ui-review-demo .nur-mini-button {
+      min-height: 26px;
+      border: 1px solid var(--nur-line);
+      border-radius: 4px;
+      padding: 0 8px;
+      color: var(--nur-text);
+      background: var(--nur-panel);
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    #neon-ui-review-demo .nur-inline-form {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+    }
+
+    #neon-ui-review-demo .nur-inline-form input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      height: 30px;
+      border: 1px solid var(--nur-line);
+      border-radius: 3px;
+      padding: 0 7px;
+      color: var(--nur-text);
+      background: var(--nur-shell);
+      font-size: 11px;
+    }
+
+    @media (max-width: 680px) {
+      #neon-ui-review-demo .nur-topbar {
+        flex-wrap: wrap;
+      }
+
+      #neon-ui-review-demo .nur-brand {
+        flex: 1 1 calc(100% - 90px);
+      }
+
+      #neon-ui-review-demo .nur-workspace {
+        grid-template-columns: 1fr;
+      }
+
+      #neon-ui-review-demo .nur-inspector {
+        border-top: 1px solid var(--nur-line);
+        border-left: 0;
+      }
+
+      #neon-ui-review-demo .nur-inspector-footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #neon-ui-review-demo .nur-editable {
+        transition: none;
+      }
+    }
+  </style>
+
+  <section class="nur-shell" aria-label="霓虹茶舍 UI 审核器交互草图">
+    <header class="nur-topbar">
+      <div class="nur-brand">
+        <div class="nur-brand-mark"><i data-lucide="panels-top-left" aria-hidden="true"></i></div>
+        <div class="nur-brand-copy">
+          <strong>霓虹茶舍 · UI 审核</strong>
+          <span>01-dialogue-panel · 1920 × 1080</span>
+        </div>
+      </div>
+      <span class="nur-status" id="nurReviewStatus" data-state="dirty">未同步</span>
+      <button class="nur-icon-button" id="nurUndo" type="button" aria-label="撤销" data-tooltip="撤销" disabled>
+        <i data-lucide="undo-2" aria-hidden="true"></i>
+      </button>
+      <button class="nur-icon-button" id="nurRedo" type="button" aria-label="重做" data-tooltip="重做" disabled>
+        <i data-lucide="redo-2" aria-hidden="true"></i>
+      </button>
+      <button class="nur-icon-button" id="nurArchive" type="button" aria-label="归档当前版本" data-tooltip="归档当前版本">
+        <i data-lucide="archive" aria-hidden="true"></i>
+      </button>
+      <button class="nur-action-button" id="nurValidate" type="button">
+        <i data-lucide="badge-check" aria-hidden="true"></i>
+        <span>校验</span>
+      </button>
+      <button class="nur-action-button" id="nurExport" type="button">
+        <i data-lucide="download" aria-hidden="true"></i>
+        <span>导出 JSON</span>
+      </button>
+      <button class="nur-action-button" id="nurExportAIToUGUI" type="button">
+        <i data-lucide="file-json" aria-hidden="true"></i>
+        <span>导出 AIToUGUI</span>
+      </button>
+      <button class="nur-action-button" id="nurLoadStory" type="button">
+        <i data-lucide="wand-sparkles" aria-hidden="true"></i>
+        <span>从 story.js 生成</span>
+      </button>
+      <input id="nurStoryFile" type="file" accept=".js,text/javascript,application/javascript" hidden>
+      <button class="nur-action-button" id="nurImportHtmlSlice" type="button">
+        <i data-lucide="file-code-2" aria-hidden="true"></i>
+        <span>导入 HTML 切片</span>
+      </button>
+      <input id="nurHtmlSliceFile" type="file" accept=".html,.htm,text/html" hidden>
+      <button class="nur-action-button" id="nurImport" type="button">
+        <i data-lucide="upload" aria-hidden="true"></i>
+        <span>导入</span>
+      </button>
+      <input id="nurImportFile" type="file" accept="application/json,.json" hidden>
+      <button class="nur-icon-button" id="nurResetAll" type="button" aria-label="恢复整个页面" data-tooltip="恢复整个页面">
+        <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+      </button>
+      <button class="nur-action-button" id="nurSyncDraft" type="button" data-primary="true">
+        <i data-lucide="send" aria-hidden="true"></i>
+        <span>同步草稿</span>
+      </button>
+    </header>
+
+    <div class="nur-workspace">
+      <main class="nur-stage-region">
+        <div class="nur-stagebar">
+          <i data-lucide="mouse-pointer-2" aria-hidden="true"></i>
+          <strong>对话场景切片</strong>
+          <span>选择元素后实时编辑</span>
+          <span class="nur-stage-meta">适配基准 16:9</span>
+        </div>
+
+        <nav class="nur-page-tabs" id="nurPageTabs" aria-label="页面切换"></nav>
+
+        <div class="nur-canvas-frame">
+          <div class="nur-game-canvas" id="nurGameCanvas" aria-label="可编辑的霓虹茶舍对话页面切片">
+            <img class="nur-scene-bg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAwIDEwMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIHNsaWNlIj4KPGRlZnM+CiA8bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDI9IjAiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjMDgwYjFjIi8+PHN0b3Agb2Zmc2V0PSIuNDgiIHN0b3AtY29sb3I9IiMxYTE5MzciLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMDEwMjIiLz48L2xpbmVhckdyYWRpZW50PgogPGxpbmVhckdyYWRpZW50IGlkPSJtaXN0IiB4Mj0iMCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiM3OWRjZDUiIHN0b3Atb3BhY2l0eT0iLjA4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjUyNDRkIiBzdG9wLW9wYWNpdHk9Ii4zNCIvPjwvbGluZWFyR3JhZGllbnQ+CiA8bGluZWFyR3JhZGllbnQgaWQ9IndhdGVyIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMyMTNkNTciLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzEwMWIzMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzA3MDkxNCIvPjwvbGluZWFyR3JhZGllbnQ+CiA8bGluZWFyR3JhZGllbnQgaWQ9InJvb2YiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZkMjg0ZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE3MTUyZCIvPjwvbGluZWFyR3JhZGllbnQ+CiA8bGluZWFyR3JhZGllbnQgaWQ9ImxhbnRlcm4iIHgyPSIwIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iI2VmNWQ3OCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzhhMmQ1OSIvPjwvbGluZWFyR3JhZGllbnQ+CiA8ZmlsdGVyIGlkPSJnbG93UmVkIj48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSI4IiByZXN1bHQ9ImIiLz48ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImIiLz48ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz48L2ZlTWVyZ2U+PC9maWx0ZXI+CiA8ZmlsdGVyIGlkPSJnbG93VGVhbCI+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iNSIgcmVzdWx0PSJiIi8+PGZlTWVyZ2U+PGZlTWVyZ2VOb2RlIGluPSJiIi8+PGZlTWVyZ2VOb2RlIGluPSJTb3VyY2VHcmFwaGljIi8+PC9mZU1lcmdlPjwvZmlsdGVyPgogPGZpbHRlciBpZD0iZ2xvd0dvbGQiPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjQiIHJlc3VsdD0iYiIvPjxmZU1lcmdlPjxmZU1lcmdlTm9kZSBpbj0iYiIvPjxmZU1lcmdlTm9kZSBpbj0iU291cmNlR3JhcGhpYyIvPjwvZmVNZXJnZT48L2ZpbHRlcj4KIDxwYXR0ZXJuIGlkPSJyYWluIiB3aWR0aD0iODQiIGhlaWdodD0iODQiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgxNykiPjxwYXRoIGQ9Ik00IDB2NDdNNDggMjd2NTQiIHN0cm9rZT0iIzdiZGFkMyIgc3Ryb2tlLW9wYWNpdHk9Ii4xMiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9wYXR0ZXJuPgogPHBhdHRlcm4gaWQ9IndhdGVyTGluZXMiIHdpZHRoPSIyNDAiIGhlaWdodD0iNzAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0wIDI2cTU0LTEyIDExMSAwdDEyOSAwTS0zMCA1NHE3MC0xMSAxNDAgMHQxMzAgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjdkOGQyIiBzdHJva2Utb3BhY2l0eT0iLjE2IiBzdHJva2Utd2lkdGg9IjMiLz48L3BhdHRlcm4+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjE2MDAiIGhlaWdodD0iMTAwMCIgZmlsbD0idXJsKCNza3kpIi8+CjxjaXJjbGUgY3g9IjExNzAiIGN5PSIxNzgiIHI9IjE1MCIgZmlsbD0iI2RiNTg3YiIgb3BhY2l0eT0iLjEiLz48Y2lyY2xlIGN4PSIxMTcwIiBjeT0iMTc4IiByPSI4MiIgZmlsbD0iI2U4Yjk2YyIgb3BhY2l0eT0iLjE0IiBmaWx0ZXI9InVybCgjZ2xvd0dvbGQpIi8+CjwhLS0gbGF5ZXJlZCBkaXN0YW50IG1vdW50YWlucyBhbmQgbWlzdCAtLT4KPHBhdGggZD0iTTAgNDIwTDE4MCAyMzBsOTAgOTAgMTYwLTIxMCAxNDUgMTc4IDE0My0xMTQgMTgwIDE0OCAxNjgtMjA1IDE2MCAxODQgMTQzLTEwNSAyMjEgMTk5djE4MEgweiIgZmlsbD0iIzBiMTAyNCIgc3Ryb2tlPSIjNWVjZGM5IiBzdHJva2Utb3BhY2l0eT0iLjE0IiBzdHJva2Utd2lkdGg9IjMiLz4KPHBhdGggZD0iTTAgNTEwbDE3NS0xMTggMTA1IDYyIDE2MC05NSAxNTAgMTAwIDE4MC03MSAxNTMgNzggMTgzLTEzMCAxNTYgMTAwIDE0My03MCAxODggMTI2djEzNUgweiIgZmlsbD0idXJsKCNtaXN0KSIvPgo8cGF0aCBkPSJNMCA0NDVxMjUwLTcwIDQ4MCAwdDQ4MCAwIDY0MCAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM4MmRlZDciIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMyIvPgo8IS0tIHRyYWRpdGlvbmFsIGN5YmVyIGNpdHkgc2lsaG91ZXR0ZSAtLT4KPGcgZmlsbD0iIzBhMGQxYyIgc3Ryb2tlPSIjNWNkM2NlIiBzdHJva2Utb3BhY2l0eT0iLjM1IiBzdHJva2Utd2lkdGg9IjMiPgogPHBhdGggZD0iTTAgNTMwVjMwNWgxODB2LTc4aDk1djc4aDEyNXYyMjV6Ii8+CiA8cGF0aCBkPSJNMTE5MCA1MzBWMjcwaDExNXYtNzZoOTB2NzZoMjA1djI2MHoiLz4KIDxwYXRoIGQ9Ik0zOTAgNTMwVjM1MGg5MHYtOTFoNjJ2OTFoMTAwdjE4MHoiLz4KIDxwYXRoIGQ9Ik05NTAgNTMwVjMzMmg5NXYtODZoNzB2ODZoMTE1djE5OHoiLz4KPC9nPgo8IS0tIGxlZnQgd2F0ZXJzaWRlIHRlYSBob3VzZSAtLT4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAgMzc1KSI+CiA8cGF0aCBkPSJNMCA4NUwyMzUtMjVsMjQ1IDExMEgweiIgZmlsbD0idXJsKCNyb29mKSIgc3Ryb2tlPSIjZTM1Mzc2IiBzdHJva2Utd2lkdGg9IjYiIGZpbHRlcj0idXJsKCNnbG93UmVkKSIvPgogPHBhdGggZD0iTS0zNSA4NkwyMzUtNTBsMjgwIDEzNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTdiNzZkIiBzdHJva2Utd2lkdGg9IjQiLz4KIDxwYXRoIGQ9Ik00MiAxMTJoMzg4djIzMkg0MnoiIGZpbGw9IiMxMDE1MmEiIHN0cm9rZT0iIzY4ZDlkMiIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiA8cGF0aCBkPSJNNjQgMTU1aDM0MHYxMThINjR6IiBmaWxsPSIjMTgyZDNlIiBzdHJva2U9IiNkNjU2NzYiIHN0cm9rZS13aWR0aD0iMyIvPgogPHBhdGggZD0iTTY2IDI3M2gzMzYiIHN0cm9rZT0iI2U1Yjc2YyIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiA8cGF0aCBkPSJNMTEyIDExM3YyMzBNMjEwIDExM3YyMzBNMzEwIDExM3YyMzAiIHN0cm9rZT0iIzY1ZDhkMSIgc3Ryb2tlLW9wYWNpdHk9Ii4zNSIgc3Ryb2tlLXdpZHRoPSIzIi8+CiA8dGV4dCB4PSIyMzIiIHk9IjIwNyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2YwYzY3YyIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9InNlcmlmIiBsZXR0ZXItc3BhY2luZz0iMTIiPumck+iZueiMtuiIjTwvdGV4dD4KIDx0ZXh0IHg9IjIzMiIgeT0iMjQ0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNzBkZGQ0IiBmb250LXNpemU9IjEzIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBsZXR0ZXItc3BhY2luZz0iNCI+VEVBSE9VU0UgLyBPUEVOPC90ZXh0PgogPHBhdGggZD0iTTg2IDM0NnY5NU0zOTYgMzQ2djk1IiBzdHJva2U9IiMxMTE0MjYiIHN0cm9rZS13aWR0aD0iMTYiLz4KPC9nPgo8IS0tIHJpZ2h0IHBhdmlsaW9uIGFuZCBwYWdvZGEgLS0+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNzUgMjg2KSI+CiA8cGF0aCBkPSJNMCAxMDVoMzUwdjIzMEgweiIgZmlsbD0iIzEwMTUyOCIgc3Ryb2tlPSIjNjJkOGQxIiBzdHJva2Utd2lkdGg9IjQiLz4KIDxwYXRoIGQ9Ik0tMzUgMTA2TDE3NSAxMmwyMTAgOTQiIGZpbGw9InVybCgjcm9vZikiIHN0cm9rZT0iI2RmNTU3NCIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiA8cGF0aCBkPSJNLTU4IDEwMkwxNzUtOGwyMzUgMTEwIiBmaWxsPSJub25lIiBzdHJva2U9IiNlNWI2NmIiIHN0cm9rZS13aWR0aD0iNCIvPgogPHBhdGggZD0iTTI1IDE0OGgzMDBNMjUgMTkwaDMwMCIgc3Ryb2tlPSIjNjVkOGQxIiBzdHJva2Utb3BhY2l0eT0iLjMyIiBzdHJva2Utd2lkdGg9IjMiLz4KIDx0ZXh0IHg9IjE3NSIgeT0iMTY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZTdiOTZjIiBmb250LXNpemU9IjIzIiBmb250LWZhbWlseT0ic2VyaWYiIGxldHRlci1zcGFjaW5nPSI1Ij7ljYPnga/pm4Y8L3RleHQ+CiA8cGF0aCBkPSJNNzAgMzM1djkwTTI4MCAzMzV2OTAiIHN0cm9rZT0iIzEwMTQyNiIgc3Ryb2tlLXdpZHRoPSIxNCIvPgo8L2c+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzNzAgOTApIiBzdHJva2U9IiNlM2I0NmIiIHN0cm9rZS13aWR0aD0iNCI+PHBhdGggZD0iTTMyIDB2NTBNMzIgMTMwdjQ0Ii8+PHBhdGggZD0iTS01IDUwaDc0bC0xMCA3NUg1eiIgZmlsbD0idXJsKCNsYW50ZXJuKSIgc3Ryb2tlPSIjZTg1Nzc2Ii8+PHBhdGggZD0iTTExIDc2aDQyTTE1IDEwMWgzNCIgc3Ryb2tlPSIjZjBjMTc2IiBzdHJva2Utd2lkdGg9IjMiLz48L2c+CjwhLS0gY2VudHJhbCB3YXRlciBhbGxleSBhbmQgYXJjaGVkIGJyaWRnZSAtLT4KPHBhdGggZD0iTTAgNTYwcTI2MC00OCA1MTUgMHQ1MzAgMCA1NTUgMHY0NDBIMHoiIGZpbGw9InVybCgjd2F0ZXIpIi8+CjxwYXRoIGQ9Ik0wIDU2MHEyNjAtNDggNTE1IDB0NTMwIDAgNTU1IDB2NDQwSDB6IiBmaWxsPSJ1cmwoI3dhdGVyTGluZXMpIiBvcGFjaXR5PSIuNyIvPgo8cGF0aCBkPSJNNDU1IDU5NHEzNDUgMTI2IDY5MCAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNlNDUxNzQiIHN0cm9rZS13aWR0aD0iOSIgZmlsdGVyPSJ1cmwoI2dsb3dSZWQpIi8+CjxwYXRoIGQ9Ik00NTUgNTk0cTM0NSAxMDAgNjkwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2U4Yjg2YyIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik00NzUgNjAxcTMyNSAxNzAgNjUwIDB2NDVxLTMyNSAxNDAtNjUwIDB6IiBmaWxsPSIjMTMxNjJiIiBzdHJva2U9IiM1YmQ0Y2YiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNNTkwIDY2NnEyMDUgODUgNDEwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzViZDRjZiIgc3Ryb2tlLW9wYWNpdHk9Ii4zNSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik04MDAgNjIwdjI2MCIgc3Ryb2tlPSIjZTliNjZhIiBzdHJva2Utb3BhY2l0eT0iLjI4IiBzdHJva2Utd2lkdGg9IjMiLz4KPCEtLSBmb3JlZ3JvdW5kIGJvYXQgYW5kIGxhbnRlcm4gcmVmbGVjdGlvbnMgLS0+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY5MCA3MzUpIiBvcGFjaXR5PSIuOTIiPjxwYXRoIGQ9Ik0tMTE1IDc1cTExNS0zNiAyMzAgMGwtMjYgMzRILTg4eiIgZmlsbD0iIzBiMGQxYiIgc3Ryb2tlPSIjZTdiNjZiIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNLTUwIDc1cTUwLTU1IDEwMCAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM2NWQ5ZDIiIHN0cm9rZS13aWR0aD0iNCIvPjxwYXRoIGQ9Ik0wIDc1Vi04NSIgc3Ryb2tlPSIjZTZiNjZjIiBzdHJva2Utd2lkdGg9IjQiLz48cGF0aCBkPSJNMC04NXEtNDIgMjUtNTUgNzhoMTEwUTQyLTYwIDAtODV6IiBmaWxsPSJ1cmwoI2xhbnRlcm4pIiBzdHJva2U9IiNlNjU4NzYiIHN0cm9rZS13aWR0aD0iMyIvPjxwYXRoIGQ9Ik0tMzAtNDZoNjBNLTM1LTIwaDcwIiBzdHJva2U9IiNmMGMxN2EiIHN0cm9rZS13aWR0aD0iMyIvPjwvZz4KPGcgb3BhY2l0eT0iLjciIHN0cm9rZT0iI2U1NTQ3NiIgc3Ryb2tlLXdpZHRoPSI0IiBmaWx0ZXI9InVybCgjZ2xvd1JlZCkiPjxwYXRoIGQ9Ik0yMTAgNzAwcTk1LTIxIDE5MCAwIi8+PHBhdGggZD0iTTExMzAgNzEwcTg1LTE3IDE3MCAwIi8+PHBhdGggZD0iTTM1MCA4NTBxMTMwLTI0IDI2MCAwIi8+PHBhdGggZD0iTTk1MCA4NzBxMTUwLTI0IDMwMCAwIi8+PC9nPgo8IS0tIGZsb2F0aW5nIGxhbnRlcm5zIGFuZCByYWluIC0tPgo8ZyBmaWxsPSIjZWZiZDcwIiBmaWx0ZXI9InVybCgjZ2xvd0dvbGQpIiBvcGFjaXR5PSIuODIiPjxjaXJjbGUgY3g9IjU1NSIgY3k9IjM3NSIgcj0iNCIvPjxjaXJjbGUgY3g9IjEwNDAiIGN5PSIzMzAiIHI9IjQiLz48Y2lyY2xlIGN4PSI5MTAiIGN5PSI0ODAiIHI9IjMiLz48Y2lyY2xlIGN4PSIyODAiIGN5PSI1MjAiIHI9IjMiLz48Y2lyY2xlIGN4PSIxNDUwIiBjeT0iNTQwIiByPSIzIi8+PC9nPgo8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDAwIiBmaWxsPSJ1cmwoI3JhaW4pIiBvcGFjaXR5PSIuNyIvPgo8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDAwIiBmaWxsPSIjMTAxMjI2IiBvcGFjaXR5PSIuMTIiLz4KPHJlY3Qgd2lkdGg9IjE2MDAiIGhlaWdodD0iMTAwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNGNkMGNiIiBzdHJva2Utb3BhY2l0eT0iLjMiIHN0cm9rZS13aWR0aD0iMyIvPgo8L3N2Zz4K" alt="霓虹茶舍场景背景">
+            <div class="nur-scene-shade"></div>
+
+            <div
+              class="nur-editable nur-day-label"
+              data-review-id="sceneDayLabel"
+              data-u-type="text"
+              data-u-name="sceneDayLabelTxt"
+              data-text-color="#dffcff"
+              data-background-color="#05141a"
+              style="left: 3%; top: 4%; width: 16%; height: 7%; font-size: 12px;"
+            ><span data-review-copy>DAY 1 · 慈恩寺异稿</span></div>
+
+            <img
+              class="nur-editable nur-character"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgOTAwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikd1ZXN0IHNpbGhvdWV0dGUiPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJndWVzdC1nbG93IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzgzZjRmZiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZjRlYjgiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Imd1ZXN0LXNoYWRvdyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMyMDI5NDciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDcwYjFkIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMzAwIiBjeT0iODMyIiByeD0iMjE4IiByeT0iMzUiIGZpbGw9IiMwNTA4MTgiIG9wYWNpdHk9IjAuNzIiLz4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSIyMDUiIHI9IjExMiIgZmlsbD0idXJsKCNndWVzdC1zaGFkb3cpIiBzdHJva2U9InVybCgjZ3Vlc3QtZ2xvdykiIHN0cm9rZS13aWR0aD0iMTAiLz4KICA8cGF0aCBkPSJNMTY2IDQyMUMxOTMgMzUzIDI0MCAzMjAgMzAwIDMyMEMzNjAgMzIwIDQwNyAzNTMgNDM0IDQyMUw1MDIgNzQ0QzUxNCA3OTIgNDc3IDgzMCA0MjggODMwSDE3MkMxMjMgODMwIDg2IDc5MiA5OCA3NDRMMTY2IDQyMVoiIGZpbGw9InVybCgjZ3Vlc3Qtc2hhZG93KSIgc3Ryb2tlPSJ1cmwoI2d1ZXN0LWdsb3cpIiBzdHJva2Utd2lkdGg9IjEwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0iTTE3NiA0NTlMMzAwIDUzNkw0MjQgNDU5IiBmaWxsPSJub25lIiBzdHJva2U9IiM4M2Y0ZmYiIHN0cm9rZS13aWR0aD0iOCIgb3BhY2l0eT0iMC43Ii8+CiAgPHBhdGggZD0iTTMwMCA1MzZWNzc4IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjRlYjgiIHN0cm9rZS13aWR0aD0iOCIgb3BhY2l0eT0iMC40OCIvPgogIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjIwNSIgcj0iNzgiIGZpbGw9IiMwYzE0MzAiLz4KPC9zdmc+Cg=="
+              alt="客人角色占位立绘"
+              data-review-id="guestPortrait"
+              data-u-type="image"
+              data-u-name="guestPortraitImg"
+              data-text-color="#ffffff"
+              data-background-color="#000000"
+              style="left: 5%; top: 10%; width: 34%; height: 86%;"
+            >
+
+            <div
+              class="nur-editable nur-dialogue-panel"
+              data-review-id="dialoguePanel"
+              data-u-type="div"
+              data-u-name="dialoguePanelBg"
+              data-text-color="#f0f7f8"
+              data-background-color="#040d13"
+              style="left: 31%; top: 55%; width: 64%; height: 35%;"
+            >
+              <div
+                class="nur-editable nur-speaker"
+                data-review-id="speakerName"
+                data-u-type="text"
+                data-u-name="speakerNameTxt"
+                data-text-color="#ffd77a"
+                data-background-color="#040d13"
+                style="left: 4%; top: 7%; width: 31%; height: 16%; font-size: 14px;"
+              ><span data-review-copy>长崎素世</span></div>
+
+              <div
+                class="nur-editable nur-dialogue-copy"
+                data-review-id="dialogueContent"
+                data-u-type="text"
+                data-u-name="dialogueContentTxt"
+                data-text-color="#f0f7f8"
+                data-background-color="#040d13"
+                style="left: 4%; top: 25%; width: 91%; height: 27%; font-size: 15px;"
+              ><span data-review-copy>如果两份记忆都足够诚实，为什么系统只允许留下一份？</span></div>
+
+              <div
+                class="nur-editable nur-choice"
+                data-review-id="dialogueChoiceA"
+                data-u-type="button"
+                data-u-name="dialogueChoiceABtn"
+                data-text-color="#ffe8f5"
+                data-background-color="#2d0e22"
+                style="left: 4%; top: 59%; width: 43%; height: 24%; font-size: 12px;"
+              ><span data-review-copy>先保留差异，再追问来源</span></div>
+
+              <div
+                class="nur-editable nur-choice"
+                data-review-id="dialogueChoiceB"
+                data-u-type="button"
+                data-u-name="dialogueChoiceBBtn"
+                data-text-color="#ffe8f5"
+                data-background-color="#2d0e22"
+                style="left: 52%; top: 59%; width: 43%; height: 24%; font-size: 12px;"
+              ><span data-review-copy>先选择可信的一份记录</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nur-stage-note" id="nurStageNote" role="status">
+          <i data-lucide="scan-search" aria-hidden="true"></i>
+          <span>当前选中：<strong>dialogueContentTxt</strong></span>
+        </div>
+
+        <div class="nur-tool-strip" id="nurToolStrip">
+          <div class="nur-tool-row">
+            <span class="nur-section-title">校验</span>
+            <code class="nur-validation-summary" id="nurValidationSummary" data-state="idle">未校验</code>
+          </div>
+          <div class="nur-tool-output" id="nurValidationOutput" hidden></div>
+          <div class="nur-tool-row">
+            <span class="nur-section-title">快照对比</span>
+            <button class="nur-mini-button" id="nurSnapshotCapture" type="button">保存当前页基线</button>
+            <button class="nur-mini-button" id="nurSnapshotCompare" type="button">与当前页对比</button>
+            <button class="nur-mini-button" id="nurSnapshotClear" type="button">清除基线</button>
+          </div>
+          <div class="nur-tool-output" id="nurSnapshotDiffOutput" hidden></div>
+          <div class="nur-tool-row">
+            <span class="nur-section-title">跨页矩阵</span>
+            <button class="nur-mini-button" id="nurMatrixCapture" type="button">保存全站基线</button>
+            <button class="nur-mini-button" id="nurMatrixCompare" type="button">生成跨页差异</button>
+            <button class="nur-mini-button" id="nurMatrixClear" type="button">清除全站基线</button>
+          </div>
+          <div class="nur-tool-output" id="nurMatrixDiffOutput" hidden></div>
+          <div class="nur-tool-row">
+            <span class="nur-section-title">批注</span>
+            <span id="nurAnnotationTarget">当前页</span>
+          </div>
+          <div class="nur-inline-form">
+            <input id="nurAnnotationInput" type="text" placeholder="为当前页添加批注">
+            <button class="nur-mini-button" id="nurAddAnnotation" type="button">添加</button>
+          </div>
+          <div class="nur-archive-list" id="nurAnnotationList"></div>
+          <div class="nur-tool-row">
+            <span class="nur-section-title">版本归档</span>
+            <button class="nur-mini-button" id="nurArchiveCurrent" type="button">保存当前快照</button>
+          </div>
+          <div class="nur-archive-list" id="nurArchiveList"></div>
+        </div>
+      </main>
+
+      <aside class="nur-inspector" aria-label="元素属性">
+        <div class="nur-inspector-header">
+          <span class="nur-inspector-kicker">元素属性</span>
+          <strong id="nurSelectedId">dialogueContent</strong>
+        </div>
+
+        <section class="nur-inspector-section">
+          <div class="nur-section-title">内容</div>
+          <label class="nur-field">
+            <span>文案</span>
+            <textarea id="nurTextValue">如果两份记忆都足够诚实，为什么系统只允许留下一份？</textarea>
+          </label>
+        </section>
+
+        <section class="nur-inspector-section">
+          <div class="nur-section-title">布局（%）</div>
+          <div class="nur-four-grid">
+            <label class="nur-mini-field"><span>X</span><input id="nurPosX" type="number" min="0" max="100" step="0.5"></label>
+            <label class="nur-mini-field"><span>Y</span><input id="nurPosY" type="number" min="0" max="100" step="0.5"></label>
+            <label class="nur-mini-field"><span>W</span><input id="nurSizeW" type="number" min="1" max="100" step="0.5"></label>
+            <label class="nur-mini-field"><span>H</span><input id="nurSizeH" type="number" min="1" max="100" step="0.5"></label>
+          </div>
+          <label class="nur-field" style="margin-top: 9px;">
+            <span>字号（px）</span>
+            <input id="nurFontSize" type="text" inputmode="numeric">
+          </label>
+        </section>
+
+        <section class="nur-inspector-section">
+          <div class="nur-section-title">外观</div>
+          <div class="nur-two-grid">
+            <label class="nur-field">
+              <span>文字</span>
+              <span class="nur-color-field"><input id="nurTextColor" type="color"><code id="nurTextColorCode">#f0f7f8</code></span>
+            </label>
+            <label class="nur-field">
+              <span>背景</span>
+              <span class="nur-color-field"><input id="nurBackgroundColor" type="color"><code id="nurBackgroundColorCode">#040d13</code></span>
+            </label>
+          </div>
+          <label class="nur-toggle-row"><input id="nurVisible" type="checkbox" checked><span>显示该元素</span></label>
+        </section>
+
+        <section class="nur-inspector-section">
+          <div class="nur-section-title">AIToUGUI 标识</div>
+          <div class="nur-meta-row"><span>控件类型</span><code id="nurUType">text</code></div>
+          <div class="nur-meta-row"><span>节点名称</span><code id="nurUName">dialogueContentTxt</code></div>
+        </section>
+
+        <div class="nur-inspector-footer">
+          <button class="nur-action-button" id="nurResetSelected" type="button">
+            <i data-lucide="undo-2" aria-hidden="true"></i>
+            <span>恢复元素</span>
+          </button>
+          <button class="nur-action-button" id="nurFocusSelected" type="button">
+            <i data-lucide="focus" aria-hidden="true"></i>
+            <span>定位</span>
+          </button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const root = document.getElementById("neon-ui-review-demo");
+      if (!root || root.dataset.ready === "true") return;
+      root.dataset.ready = "true";
+
+      const canvas = root.querySelector("#nurGameCanvas");
+      const selectedId = root.querySelector("#nurSelectedId");
+      const stageNote = root.querySelector("#nurStageNote strong");
+      const textValue = root.querySelector("#nurTextValue");
+      const posX = root.querySelector("#nurPosX");
+      const posY = root.querySelector("#nurPosY");
+      const sizeW = root.querySelector("#nurSizeW");
+      const sizeH = root.querySelector("#nurSizeH");
+      const fontSize = root.querySelector("#nurFontSize");
+      const textColor = root.querySelector("#nurTextColor");
+      const backgroundColor = root.querySelector("#nurBackgroundColor");
+      const textColorCode = root.querySelector("#nurTextColorCode");
+      const backgroundColorCode = root.querySelector("#nurBackgroundColorCode");
+      const visible = root.querySelector("#nurVisible");
+      const uType = root.querySelector("#nurUType");
+      const uName = root.querySelector("#nurUName");
+      const status = root.querySelector("#nurReviewStatus");
+      const syncButton = root.querySelector("#nurSyncDraft");
+      const resetAllButton = root.querySelector("#nurResetAll");
+      const resetSelectedButton = root.querySelector("#nurResetSelected");
+      const focusSelectedButton = root.querySelector("#nurFocusSelected");
+      const undoButton = root.querySelector("#nurUndo");
+      const redoButton = root.querySelector("#nurRedo");
+      const archiveButton = root.querySelector("#nurArchive");
+      const validateButton = root.querySelector("#nurValidate");
+      const exportButton = root.querySelector("#nurExport");
+      const importButton = root.querySelector("#nurImport");
+      const importFile = root.querySelector("#nurImportFile");
+      const validationSummary = root.querySelector("#nurValidationSummary");
+      const validationOutput = root.querySelector("#nurValidationOutput");
+      const archiveList = root.querySelector("#nurArchiveList");
+      const archiveCurrentButton = root.querySelector("#nurArchiveCurrent");
+      const snapshotCaptureButton = root.querySelector("#nurSnapshotCapture");
+      const snapshotCompareButton = root.querySelector("#nurSnapshotCompare");
+      const snapshotClearButton = root.querySelector("#nurSnapshotClear");
+      const snapshotDiffOutput = root.querySelector("#nurSnapshotDiffOutput");
+      const matrixCaptureButton = root.querySelector("#nurMatrixCapture");
+      const matrixCompareButton = root.querySelector("#nurMatrixCompare");
+      const matrixClearButton = root.querySelector("#nurMatrixClear");
+      const matrixDiffOutput = root.querySelector("#nurMatrixDiffOutput");
+      const annotationInput = root.querySelector("#nurAnnotationInput");
+      const addAnnotationButton = root.querySelector("#nurAddAnnotation");
+      const annotationList = root.querySelector("#nurAnnotationList");
+      const annotationTarget = root.querySelector("#nurAnnotationTarget");
+      const pageTabs = root.querySelector("#nurPageTabs");
+      const brandSubtitle = root.querySelector(".nur-brand-copy span");
+      const stageTitle = root.querySelector(".nur-stagebar strong");
+      const exportAIToUGUIButton = root.querySelector("#nurExportAIToUGUI");
+      const loadStoryButton = root.querySelector("#nurLoadStory");
+      const storyFile = root.querySelector("#nurStoryFile");
+      const importHtmlSliceButton = root.querySelector("#nurImportHtmlSlice");
+      const htmlSliceFile = root.querySelector("#nurHtmlSliceFile");
+      const storageKey = "neon-teahouse-ui-review-v1";
+      let undoStack = [];
+      let redoStack = [];
+      let archiveVersions = [];
+      let annotations = [];
+      let compareBaseline = null;
+      let matrixBaseline = null;
+      let selected = null;
+      let activePageId = "01-dialogue-panel";
+      let currentEditables = [];
+      const pageContainers = new Map();
+      const statesByPage = new Map();
+      const defaultsByPage = new Map();
+
+      const pageDefinitions = [
+        {
+          id: "01-dialogue-panel",
+          label: "对话",
+          title: "对话场景切片",
+          defaultReviewId: "dialogueContent",
+          prefabName: "DialoguePanel",
+          elements: [
+            {
+              reviewId: "sceneDayLabel",
+              uType: "text",
+              uName: "sceneDayLabelTxt",
+              className: "nur-day-label",
+              text: "DAY 1 · 慈恩寺异稿",
+              textColor: "#dffcff",
+              backgroundColor: "#05141a",
+              style: { left: "3%", top: "4%", width: "16%", height: "7%", fontSize: "12px" }
+            },
+            {
+              reviewId: "guestPortrait",
+              uType: "image",
+              uName: "guestPortraitImg",
+              className: "nur-character",
+              tag: "img",
+              text: null,
+              textColor: "#ffffff",
+              backgroundColor: "#000000",
+              style: { left: "5%", top: "10%", width: "34%", height: "86%" },
+              src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgOTAwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikd1ZXN0IHNpbGhvdWV0dGUiPjxjaXJjbGUgY3g9IjMwMCIgY3k9IjIwNSIgcj0iMTEyIiBmaWxsPSIjMGMxNDMwIi8+PHBhdGggZD0iTTE2NiA0MjFDMjAwIDMyMCAzMDAgMzEwIDMwMCAzMTBzMTAwIDEwIDEzNCAxMTFsNjggMzQ0YzEyIDQ4LTI4IDc1LTc3IDc1SDE3NWMtNDkgMC04OS0yNy03Ny03NXoiIGZpbGw9IiMwYzE0MzAiLz48L3N2Zz4=",
+              alt: "客人角色占位立绘"
+            },
+            {
+              reviewId: "dialoguePanel",
+              uType: "div",
+              uName: "dialoguePanelBg",
+              className: "nur-dialogue-panel",
+              text: null,
+              textColor: "#f0f7f8",
+              backgroundColor: "#040d13",
+              style: { left: "31%", top: "55%", width: "64%", height: "35%" },
+              children: [
+                {
+                  reviewId: "speakerName",
+                  uType: "text",
+                  uName: "speakerNameTxt",
+                  className: "nur-speaker",
+                  text: "长崎素世",
+                  textColor: "#ffd77a",
+                  backgroundColor: "#040d13",
+                  style: { left: "4%", top: "7%", width: "31%", height: "16%", fontSize: "14px" }
+                },
+                {
+                  reviewId: "dialogueContent",
+                  uType: "text",
+                  uName: "dialogueContentTxt",
+                  className: "nur-dialogue-copy",
+                  text: "如果两份记忆都足够诚实，为什么系统只允许留下一份？",
+                  textColor: "#f0f7f8",
+                  backgroundColor: "#040d13",
+                  style: { left: "4%", top: "25%", width: "91%", height: "27%", fontSize: "15px" }
+                },
+                {
+                  reviewId: "dialogueChoiceA",
+                  uType: "button",
+                  uName: "dialogueChoiceABtn",
+                  className: "nur-choice",
+                  text: "先保留差异，再追问来源",
+                  textColor: "#ffe8f5",
+                  backgroundColor: "#2d0e22",
+                  style: { left: "4%", top: "59%", width: "43%", height: "24%", fontSize: "12px" }
+                },
+                {
+                  reviewId: "dialogueChoiceB",
+                  uType: "button",
+                  uName: "dialogueChoiceBBtn",
+                  className: "nur-choice",
+                  text: "先选择可信的一份记录",
+                  textColor: "#ffe8f5",
+                  backgroundColor: "#2d0e22",
+                  style: { left: "52%", top: "59%", width: "43%", height: "24%", fontSize: "12px" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: "02-mixing-panel",
+          label: "调茶",
+          title: "调茶场景切片",
+          defaultReviewId: "mixingRecipeA",
+          prefabName: "MixingPanel",
+          elements: [
+            {
+              reviewId: "mixingTitle",
+              uType: "text",
+              uName: "mixingTitleTxt",
+              className: "nur-page-title",
+              text: "第一夜 · 茶饮调制",
+              textColor: "#dffcff",
+              backgroundColor: "#05141a",
+              style: { left: "5%", top: "6%", width: "30%", height: "10%", fontSize: "17px" }
+            },
+            {
+              reviewId: "mixingHint",
+              uType: "text",
+              uName: "mixingHintTxt",
+              className: "nur-body-copy",
+              text: "她需要温暖与安静，但太强的旧香会让别人的人生盖过她。",
+              textColor: "#f0f7f8",
+              backgroundColor: "#0a1117",
+              style: { left: "5%", top: "20%", width: "36%", height: "18%", fontSize: "13px" }
+            },
+            {
+              reviewId: "mixingRecipeA",
+              uType: "button",
+              uName: "mixingRecipeABtn",
+              className: "nur-recipe-card",
+              text: "茶底：白茶",
+              textColor: "#ffe8f5",
+              backgroundColor: "#2d0e22",
+              style: { left: "46%", top: "14%", width: "24%", height: "18%", fontSize: "11px" }
+            },
+            {
+              reviewId: "mixingRecipeB",
+              uType: "button",
+              uName: "mixingRecipeBBtn",
+              className: "nur-recipe-card",
+              text: "辅料：桂花",
+              textColor: "#ffe8f5",
+              backgroundColor: "#2d0e22",
+              style: { left: "73%", top: "14%", width: "22%", height: "18%", fontSize: "11px" }
+            },
+            {
+              reviewId: "mixingRecipeC",
+              uType: "button",
+              uName: "mixingRecipeCBtn",
+              className: "nur-recipe-card",
+              text: "水温：70-82℃",
+              textColor: "#ffe8f5",
+              backgroundColor: "#2d0e22",
+              style: { left: "46%", top: "38%", width: "24%", height: "18%", fontSize: "11px" }
+            },
+            {
+              reviewId: "mixingRecipeD",
+              uType: "button",
+              uName: "mixingRecipeDBtn",
+              className: "nur-recipe-card",
+              text: "冲泡：30-55s",
+              textColor: "#ffe8f5",
+              backgroundColor: "#2d0e22",
+              style: { left: "73%", top: "38%", width: "22%", height: "18%", fontSize: "11px" }
+            },
+            {
+              reviewId: "mixingBrewButton",
+              uType: "button",
+              uName: "mixingBrewBtn",
+              className: "nur-choice",
+              text: "开始冲泡",
+              textColor: "#ffe8f5",
+              backgroundColor: "#2d0e22",
+              style: { left: "46%", top: "66%", width: "24%", height: "17%", fontSize: "12px" }
+            },
+            {
+              reviewId: "mixingServeButton",
+              uType: "button",
+              uName: "mixingServeBtn",
+              className: "nur-choice",
+              text: "上茶",
+              textColor: "#ffe8f5",
+              backgroundColor: "#2d0e22",
+              style: { left: "73%", top: "66%", width: "22%", height: "17%", fontSize: "12px" }
+            }
+          ]
+        },
+        {
+          id: "03-hud",
+          label: "HUD",
+          title: "HUD 状态栏",
+          defaultReviewId: "hudDayValue",
+          prefabName: "HudPanel",
+          elements: [
+            {
+              reviewId: "hudBar",
+              uType: "div",
+              uName: "hudBarBg",
+              className: "nur-hud-bar",
+              text: null,
+              textColor: "#dffcff",
+              backgroundColor: "#040d13",
+              style: { left: "0%", top: "0%", width: "100%", height: "11%" },
+              children: [
+                {
+                  reviewId: "hudDayLabel",
+                  uType: "text",
+                  uName: "hudDayLabelTxt",
+                  className: "nur-hud-item",
+                  text: "DAY",
+                  textColor: "#dffcff",
+                  backgroundColor: "#05141a",
+                  style: { left: "2%", top: "24%", width: "10%", height: "52%", fontSize: "11px" }
+                },
+                {
+                  reviewId: "hudDayValue",
+                  uType: "text",
+                  uName: "hudDayValueTxt",
+                  className: "nur-hud-item",
+                  text: "1",
+                  textColor: "#ffd77a",
+                  backgroundColor: "#05141a",
+                  style: { left: "13%", top: "24%", width: "8%", height: "52%", fontSize: "11px" }
+                },
+                {
+                  reviewId: "hudTimeValue",
+                  uType: "text",
+                  uName: "hudTimeValueTxt",
+                  className: "nur-hud-item",
+                  text: "OPEN 19:40",
+                  textColor: "#f0f7f8",
+                  backgroundColor: "#05141a",
+                  style: { left: "24%", top: "24%", width: "18%", height: "52%", fontSize: "10px" }
+                },
+                {
+                  reviewId: "hudResonanceLabel",
+                  uType: "text",
+                  uName: "hudResonanceLabelTxt",
+                  className: "nur-hud-item",
+                  text: "共鸣",
+                  textColor: "#dffcff",
+                  backgroundColor: "#05141a",
+                  style: { left: "48%", top: "24%", width: "12%", height: "52%", fontSize: "11px" }
+                },
+                {
+                  reviewId: "hudResonanceValue",
+                  uType: "text",
+                  uName: "hudResonanceValueTxt",
+                  className: "nur-hud-item",
+                  text: "0",
+                  textColor: "#ffd77a",
+                  backgroundColor: "#05141a",
+                  style: { left: "61%", top: "24%", width: "9%", height: "52%", fontSize: "11px" }
+                },
+                {
+                  reviewId: "hudWeatherIcon",
+                  uType: "text",
+                  uName: "hudWeatherIconTxt",
+                  className: "nur-hud-item",
+                  text: "雨夜",
+                  textColor: "#a7d8ff",
+                  backgroundColor: "#05141a",
+                  style: { left: "74%", top: "24%", width: "11%", height: "52%", fontSize: "10px" }
+                },
+                {
+                  reviewId: "hudMenuButton",
+                  uType: "button",
+                  uName: "hudMenuBtn",
+                  className: "nur-hud-item",
+                  text: "菜单",
+                  textColor: "#dffcff",
+                  backgroundColor: "#0d4c58",
+                  style: { left: "88%", top: "24%", width: "10%", height: "52%", fontSize: "10px" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: "04-announcement",
+          label: "公告",
+          title: "公告页面切片",
+          defaultReviewId: "announcementTitle",
+          prefabName: "AnnouncementPanel",
+          elements: [
+            {
+              reviewId: "announcementPanel",
+              uType: "div",
+              uName: "announcementPanelBg",
+              className: "nur-dialogue-panel",
+              text: null,
+              textColor: "#f0f7f8",
+              backgroundColor: "#040d13",
+              style: { left: "24%", top: "14%", width: "52%", height: "68%" },
+              children: [
+                {
+                  reviewId: "announcementTitle",
+                  uType: "text",
+                  uName: "announcementTitleTxt",
+                  className: "nur-page-title",
+                  text: "第一夜 · 慈恩寺的异稿",
+                  textColor: "#dffcff",
+                  backgroundColor: "#05141a",
+                  style: { left: "6%", top: "8%", width: "88%", height: "13%", fontSize: "15px" }
+                },
+                {
+                  reviewId: "announcementDate",
+                  uType: "text",
+                  uName: "announcementDateTxt",
+                  className: "nur-hud-item",
+                  text: "OPEN 19:40",
+                  textColor: "#dffcff",
+                  backgroundColor: "#05141a",
+                  style: { left: "6%", top: "27%", width: "30%", height: "10%", fontSize: "10px" }
+                },
+                {
+                  reviewId: "announcementBody",
+                  uType: "text",
+                  uName: "announcementBodyTxt",
+                  className: "nur-body-copy",
+                  text: "旧灯第一次正式营业。不同版本的登塔记载与一片旧纸纤维，把失去的手账带回桌面。",
+                  textColor: "#f0f7f8",
+                  backgroundColor: "#040d13",
+                  style: { left: "6%", top: "43%", width: "88%", height: "25%", fontSize: "12px" }
+                },
+                {
+                  reviewId: "announcementConfirm",
+                  uType: "button",
+                  uName: "announcementConfirmBtn",
+                  className: "nur-choice",
+                  text: "接待来客",
+                  textColor: "#ffe8f5",
+                  backgroundColor: "#2d0e22",
+                  style: { left: "6%", top: "75%", width: "40%", height: "14%", fontSize: "11px" }
+                },
+                {
+                  reviewId: "announcementClose",
+                  uType: "button",
+                  uName: "announcementCloseBtn",
+                  className: "nur-choice",
+                  text: "稍后再看",
+                  textColor: "#ffe8f5",
+                  backgroundColor: "#2d0e22",
+                  style: { left: "52%", top: "75%", width: "40%", height: "14%", fontSize: "11px" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: "05-backlog",
+          label: "回看",
+          title: "对话回顾切片",
+          defaultReviewId: "backlogTitle",
+          prefabName: "BacklogPanel",
+          elements: [
+            {
+              reviewId: "backlogPanel",
+              uType: "div",
+              uName: "backlogPanelBg",
+              className: "nur-dialogue-panel",
+              text: null,
+              textColor: "#f0f7f8",
+              backgroundColor: "#040d13",
+              style: { left: "18%", top: "10%", width: "64%", height: "76%" },
+              children: [
+                {
+                  reviewId: "backlogTitle",
+                  uType: "text",
+                  uName: "backlogTitleTxt",
+                  className: "nur-page-title",
+                  text: "慈恩寺的异稿",
+                  textColor: "#dffcff",
+                  backgroundColor: "#05141a",
+                  style: { left: "6%", top: "6%", width: "88%", height: "12%", fontSize: "15px" }
+                },
+                {
+                  reviewId: "backlogLine1",
+                  uType: "text",
+                  uName: "backlogLine1Txt",
+                  className: "nur-body-copy",
+                  text: "慈恩寺塔唱和留下不同而诚实的记载。",
+                  textColor: "#f0f7f8",
+                  backgroundColor: "#040d13",
+                  style: { left: "6%", top: "23%", width: "88%", height: "15%", fontSize: "12px" }
+                },
+                {
+                  reviewId: "backlogLine2",
+                  uType: "text",
+                  uName: "backlogLine2Txt",
+                  className: "nur-body-copy",
+                  text: "长崎素世认出千早爱音原始手账的针脚，却不知道手账现在何处。",
+                  textColor: "#f0f7f8",
+                  backgroundColor: "#040d13",
+                  style: { left: "6%", top: "40%", width: "88%", height: "15%", fontSize: "12px" }
+                },
+                {
+                  reviewId: "backlogLine3",
+                  uType: "text",
+                  uName: "backlogLine3Txt",
+                  className: "nur-body-copy",
+                  text: "异稿、旧纸针脚，以及第一次被说出的“千早爱音”。",
+                  textColor: "#f0f7f8",
+                  backgroundColor: "#040d13",
+                  style: { left: "6%", top: "57%", width: "88%", height: "15%", fontSize: "12px" }
+                },
+                {
+                  reviewId: "backlogClear",
+                  uType: "button",
+                  uName: "backlogClearBtn",
+                  className: "nur-choice",
+                  text: "清除记录",
+                  textColor: "#ffe8f5",
+                  backgroundColor: "#2d0e22",
+                  style: { left: "6%", top: "79%", width: "40%", height: "12%", fontSize: "11px" }
+                },
+                {
+                  reviewId: "backlogClose",
+                  uType: "button",
+                  uName: "backlogCloseBtn",
+                  className: "nur-choice",
+                  text: "返回",
+                  textColor: "#ffe8f5",
+                  backgroundColor: "#2d0e22",
+                  style: { left: "52%", top: "79%", width: "40%", height: "12%", fontSize: "11px" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: "06-ending",
+          label: "结局",
+          title: "结局面板切片",
+          defaultReviewId: "endingTitle",
+          prefabName: "EndingPanel",
+          elements: [
+            {
+              reviewId: "endingPanel",
+              uType: "div",
+              uName: "endingPanelBg",
+              className: "nur-dialogue-panel",
+              text: null,
+              textColor: "#f0f7f8",
+              backgroundColor: "#040d13",
+              style: { left: "12%", top: "8%", width: "76%", height: "82%" },
+              children: [
+                {
+                  reviewId: "endingLabel",
+                  uType: "text",
+                  uName: "endingLabelTxt",
+                  className: "nur-hud-item",
+                  text: "ENDING A / 留灯",
+                  textColor: "#ffe3a1",
+                  backgroundColor: "#05141a",
+                  style: { left: "7%", top: "7%", width: "34%", height: "9%", fontSize: "10px" }
+                },
+                {
+                  reviewId: "endingTitle",
+                  uType: "text",
+                  uName: "endingTitleTxt",
+                  className: "nur-page-title",
+                  text: "沿着灯继续寻找",
+                  textColor: "#dffcff",
+                  backgroundColor: "#05141a",
+                  style: { left: "7%", top: "20%", width: "86%", height: "13%", fontSize: "17px" }
+                },
+                {
+                  reviewId: "endingText",
+                  uType: "text",
+                  uName: "endingTextTxt",
+                  className: "nur-body-copy",
+                  text: "椎名立希没有找到千早爱音，也没有把裂隙中的未知写成幸存证明。她选择继续寻找，同时让旧灯为真正需要的人亮着。",
+                  textColor: "#f0f7f8",
+                  backgroundColor: "#040d13",
+                  style: { left: "7%", top: "38%", width: "86%", height: "23%", fontSize: "12px" }
+                },
+                {
+                  reviewId: "endingQuote",
+                  uType: "text",
+                  uName: "endingQuoteTxt",
+                  className: "nur-end-quote",
+                  text: "我寻找的不是过去替我留下的答案，而是她仍可能拥有的选择。",
+                  textColor: "#ffe3a1",
+                  backgroundColor: "#141004",
+                  style: { left: "7%", top: "65%", width: "86%", height: "14%", fontSize: "10px" }
+                },
+                {
+                  reviewId: "endingNewGame",
+                  uType: "button",
+                  uName: "endingNewGameBtn",
+                  className: "nur-choice",
+                  text: "开始新的夜晚",
+                  textColor: "#ffe8f5",
+                  backgroundColor: "#2d0e22",
+                  style: { left: "7%", top: "84%", width: "40%", height: "11%", fontSize: "11px" }
+                },
+                {
+                  reviewId: "endingClose",
+                  uType: "button",
+                  uName: "endingCloseBtn",
+                  className: "nur-choice",
+                  text: "回到茶馆",
+                  textColor: "#ffe8f5",
+                  backgroundColor: "#2d0e22",
+                  style: { left: "53%", top: "84%", width: "40%", height: "11%", fontSize: "11px" }
+                }
+              ]
+            }
+          ]
+        }
+      ];
+
+      const snapshot = (element) => {
+        const copy = element.querySelector("[data-review-copy]");
+        return {
+          style: element.getAttribute("style") || "",
+          text: copy ? copy.textContent : null,
+          textColor: element.dataset.textColor || "#ffffff",
+          backgroundColor: element.dataset.backgroundColor || "#000000",
+          uType: element.dataset.uType,
+          uName: element.dataset.uName,
+          visible: element.style.visibility !== "hidden",
+          layout: {
+            xPercent: Number.parseFloat(element.style.left),
+            yPercent: Number.parseFloat(element.style.top),
+            widthPercent: Number.parseFloat(element.style.width),
+            heightPercent: Number.parseFloat(element.style.height)
+          },
+          fontSizePx: copy ? Number.parseFloat(element.style.fontSize) : null
+        };
+      };
+
+      const cloneState = (state) => ({
+        ...state,
+        layout: { ...(state.layout || {}) }
+      });
+
+      const snapshotElements = (elements) => elements.map((element) => ({
+        id: element.dataset.reviewId,
+        state: snapshot(element)
+      }));
+
+      const cloneStates = (states) => states.map((entry) => ({
+        id: entry.id,
+        state: cloneState(entry.state)
+      }));
+
+      const getPageDefinition = (pageId) => pageDefinitions.find((item) => item.id === pageId);
+
+      const getPageElements = (pageId) => {
+        const container = pageContainers.get(pageId);
+        return container ? Array.from(container.querySelectorAll(".nur-editable[data-review-id]")) : [];
+      };
+
+      const createPageElement = (descriptor) => {
+        const tag = descriptor.tag || "div";
+        const element = document.createElement(tag);
+        element.className = `nur-editable ${descriptor.className || ""}`.trim();
+        element.dataset.reviewId = descriptor.reviewId;
+        element.dataset.uType = descriptor.uType;
+        element.dataset.uName = descriptor.uName;
+        element.dataset.textColor = descriptor.textColor || "#ffffff";
+        element.dataset.backgroundColor = descriptor.backgroundColor || "#000000";
+        Object.entries(descriptor.style || {}).forEach(([property, value]) => {
+          element.style[property] = value;
+        });
+        if (tag === "img") {
+          if (descriptor.src) element.src = descriptor.src;
+          if (descriptor.alt) element.alt = descriptor.alt;
+        } else if (descriptor.text !== null && descriptor.text !== undefined) {
+          const copy = document.createElement("span");
+          copy.dataset.reviewCopy = "";
+          copy.textContent = descriptor.text;
+          element.appendChild(copy);
+        }
+        (descriptor.children || []).forEach((child) => {
+          element.appendChild(createPageElement(child));
+        });
+        return element;
+      };
+
+      const buildPageContainers = () => {
+        const dialogueContainer = document.createElement("div");
+        dialogueContainer.dataset.page = "01-dialogue-panel";
+        Array.from(canvas.querySelectorAll(":scope > .nur-editable[data-review-id]")).forEach((element) => {
+          dialogueContainer.appendChild(element);
+        });
+        canvas.appendChild(dialogueContainer);
+        pageContainers.set("01-dialogue-panel", dialogueContainer);
+
+        pageDefinitions.forEach((definition) => {
+          if (definition.id === "01-dialogue-panel") return;
+          const container = document.createElement("div");
+          container.dataset.page = definition.id;
+          container.hidden = true;
+          definition.elements.forEach((descriptor) => {
+            container.appendChild(createPageElement(descriptor));
+          });
+          canvas.appendChild(container);
+          pageContainers.set(definition.id, container);
+        });
+      };
+
+      const syncActivePageState = () => {
+        if (!activePageId || !pageContainers.has(activePageId)) return;
+        statesByPage.set(activePageId, snapshotElements(getPageElements(activePageId)));
+      };
+
+      const snapshotAll = () => {
+        syncActivePageState();
+        const result = {};
+        pageContainers.forEach((container, pageId) => {
+          result[pageId] = cloneStates(statesByPage.get(pageId) || []);
+        });
+        return result;
+      };
+
+      const applyElementStates = (elements, states) => {
+        const byId = new Map(elements.map((element) => [element.dataset.reviewId, element]));
+        states.forEach(({ id, state }) => {
+          const element = byId.get(id);
+          if (element) restore(element, state);
+        });
+      };
+
+      const restoreAll = (snapshot) => {
+        Object.entries(snapshot || {}).forEach(([pageId, states]) => {
+          if (!pageContainers.has(pageId)) return;
+          statesByPage.set(pageId, cloneStates(states));
+        });
+        const restoredStates = statesByPage.get(activePageId) || [];
+        applyElementStates(currentEditables, restoredStates);
+        currentEditables.forEach(applyColors);
+        renderInspector();
+        updateHistoryButtons();
+      };
+
+      const updatePageTabs = () => {
+        if (!pageTabs) return;
+        pageTabs.innerHTML = "";
+        pageDefinitions.forEach((definition) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "nur-page-tab";
+          button.textContent = definition.label;
+          button.setAttribute("aria-selected", definition.id === activePageId ? "true" : "false");
+          button.addEventListener("click", () => renderPage(definition.id));
+          pageTabs.appendChild(button);
+        });
+      };
+
+      const updateStageMeta = () => {
+        const definition = getPageDefinition(activePageId);
+        if (!definition) return;
+        if (brandSubtitle) brandSubtitle.textContent = `${definition.id} · 1920 × 1080`;
+        if (stageTitle) stageTitle.textContent = definition.title;
+        canvas.setAttribute("aria-label", `可编辑的霓虹茶舍${definition.label}页面切片`);
+      };
+
+      const renderPage = (pageId) => {
+        const definition = getPageDefinition(pageId);
+        if (!definition) return;
+        syncActivePageState();
+        activePageId = pageId;
+        pageContainers.forEach((container, id) => {
+          container.hidden = id !== pageId;
+        });
+        currentEditables = getPageElements(pageId);
+        if (!statesByPage.has(pageId)) {
+          statesByPage.set(pageId, cloneStates(defaultsByPage.get(pageId) || []));
+        }
+        applyElementStates(currentEditables, statesByPage.get(pageId));
+        currentEditables.forEach(applyColors);
+        updatePageTabs();
+        updateStageMeta();
+        renderSnapshotDiff(null);
+        const defaultElement = currentEditables.find((element) => element.dataset.reviewId === definition.defaultReviewId) || currentEditables[0];
+        if (defaultElement) selectElement(defaultElement);
+        renderInspector();
+      };
+
+      const pushHistory = () => {
+        undoStack.push(snapshotAll());
+        if (undoStack.length > 50) undoStack.shift();
+        redoStack = [];
+        updateHistoryButtons();
+      };
+
+      const updateHistoryButtons = () => {
+        undoButton.disabled = undoStack.length === 0;
+        redoButton.disabled = redoStack.length === 0;
+      };
+
+      const persistDraft = () => {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify({
+            draft: collectReviewData(),
+            archives: archiveVersions,
+            annotations: annotations
+          }));
+        } catch {
+          // The editor still works without storage in restricted contexts.
+        }
+      };
+
+      const loadPersisted = () => {
+        try {
+          const raw = localStorage.getItem(storageKey);
+          return raw ? JSON.parse(raw) : null;
+        } catch {
+          return null;
+        }
+      };
+
+      const numberFromStyle = (element, property, fallback) => {
+        const value = Number.parseFloat(element.style[property]);
+        return Number.isFinite(value) ? value : fallback;
+      };
+
+      const setDirty = () => {
+        status.textContent = "未同步";
+        status.dataset.state = "dirty";
+        persistDraft();
+      };
+
+      const applyColors = (element) => {
+        if (element.matches("img")) return;
+        element.style.color = element.dataset.textColor;
+        element.style.backgroundColor = element.dataset.backgroundColor;
+      };
+
+      const renderInspector = () => {
+        if (!selected) return;
+        const copy = selected.querySelector("[data-review-copy]");
+        const hasText = Boolean(copy);
+        selectedId.textContent = selected.dataset.reviewId;
+        stageNote.textContent = selected.dataset.uName;
+        textValue.disabled = !hasText;
+        textValue.value = hasText ? copy.textContent : "";
+        textValue.placeholder = hasText ? "" : "该控件没有可编辑文案";
+        posX.value = numberFromStyle(selected, "left", 0);
+        posY.value = numberFromStyle(selected, "top", 0);
+        sizeW.value = numberFromStyle(selected, "width", 10);
+        sizeH.value = numberFromStyle(selected, "height", 10);
+        fontSize.disabled = !hasText;
+        fontSize.value = hasText ? String(numberFromStyle(selected, "fontSize", 14)) : "";
+        textColor.disabled = !hasText;
+        textColor.value = selected.dataset.textColor || "#ffffff";
+        backgroundColor.disabled = selected.matches("img");
+        backgroundColor.value = selected.dataset.backgroundColor || "#000000";
+        textColorCode.textContent = textColor.value;
+        backgroundColorCode.textContent = backgroundColor.value;
+        visible.checked = selected.style.visibility !== "hidden";
+        uType.textContent = selected.dataset.uType;
+        uName.textContent = selected.dataset.uName;
+      };
+
+      const selectElement = (element) => {
+        currentEditables.forEach((item) => { item.dataset.selected = "false"; });
+        selected = element;
+        selected.dataset.selected = "true";
+        renderInspector();
+        updateAnnotationTarget();
+      };
+
+      const restore = (element, state) => {
+        element.setAttribute("style", state.style);
+        element.dataset.textColor = state.textColor;
+        element.dataset.backgroundColor = state.backgroundColor;
+        element.style.visibility = state.visible ? "visible" : "hidden";
+        const copy = element.querySelector("[data-review-copy]");
+        if (copy && state.text !== null) copy.textContent = state.text;
+        applyColors(element);
+      };
+
+      canvas.addEventListener("click", (event) => {
+        const target = event.target.closest(".nur-editable[data-review-id]");
+        if (target && pageContainers.get(activePageId)?.contains(target)) {
+          event.preventDefault();
+          selectElement(target);
+          return;
+        }
+        if (selected) selectElement(selected);
+      });
+
+      textValue.addEventListener("input", () => {
+        if (!selected) return;
+        const copy = selected.querySelector("[data-review-copy]");
+        if (!copy) return;
+        pushHistory();
+        copy.textContent = textValue.value;
+        setDirty();
+      });
+
+      const bindPercent = (input, property) => {
+        input.addEventListener("input", () => {
+          if (!selected) return;
+          const value = Number.parseFloat(input.value);
+          if (!Number.isFinite(value)) return;
+          pushHistory();
+          selected.style[property] = `${value}%`;
+          setDirty();
+        });
+      };
+
+      bindPercent(posX, "left");
+      bindPercent(posY, "top");
+      bindPercent(sizeW, "width");
+      bindPercent(sizeH, "height");
+
+      fontSize.addEventListener("input", () => {
+        if (!selected || fontSize.disabled) return;
+        const value = Number.parseFloat(fontSize.value);
+        if (!Number.isFinite(value)) return;
+        pushHistory();
+        selected.style.fontSize = `${Math.max(6, Math.min(72, value))}px`;
+        setDirty();
+      });
+
+      textColor.addEventListener("input", () => {
+        if (!selected || textColor.disabled) return;
+        pushHistory();
+        selected.dataset.textColor = textColor.value;
+        textColorCode.textContent = textColor.value;
+        applyColors(selected);
+        setDirty();
+      });
+
+      backgroundColor.addEventListener("input", () => {
+        if (!selected || backgroundColor.disabled) return;
+        pushHistory();
+        selected.dataset.backgroundColor = backgroundColor.value;
+        backgroundColorCode.textContent = backgroundColor.value;
+        applyColors(selected);
+        setDirty();
+      });
+
+      visible.addEventListener("change", () => {
+        if (!selected) return;
+        pushHistory();
+        selected.style.visibility = visible.checked ? "visible" : "hidden";
+        setDirty();
+      });
+
+      resetSelectedButton.addEventListener("click", () => {
+        if (!selected) return;
+        pushHistory();
+        const defaultEntry = (defaultsByPage.get(activePageId) || []).find((entry) => entry.id === selected.dataset.reviewId);
+        if (defaultEntry) restore(selected, defaultEntry.state);
+        syncActivePageState();
+        renderInspector();
+        setDirty();
+      });
+
+      resetAllButton.addEventListener("click", () => {
+        pushHistory();
+        const defaultStates = defaultsByPage.get(activePageId) || [];
+        currentEditables.forEach((element) => {
+          const defaultEntry = defaultStates.find((entry) => entry.id === element.dataset.reviewId);
+          if (defaultEntry) restore(element, defaultEntry.state);
+        });
+        syncActivePageState();
+        renderInspector();
+        setDirty();
+      });
+
+      undoButton.addEventListener("click", () => {
+        if (undoStack.length === 0) return;
+        redoStack.push(snapshotAll());
+        restoreAll(undoStack.pop());
+        updateHistoryButtons();
+        setDirty();
+      });
+
+      redoButton.addEventListener("click", () => {
+        if (redoStack.length === 0) return;
+        undoStack.push(snapshotAll());
+        restoreAll(redoStack.pop());
+        updateHistoryButtons();
+        setDirty();
+      });
+
+      focusSelectedButton.addEventListener("click", () => {
+        if (!selected) return;
+        selected.animate(
+          [
+            { boxShadow: "0 0 0 5px rgba(121, 230, 239, 0.13)" },
+            { boxShadow: "0 0 0 10px rgba(121, 230, 239, 0.28)" },
+            { boxShadow: "0 0 0 5px rgba(121, 230, 239, 0.13)" }
+          ],
+          { duration: 420, easing: "ease-out" }
+        );
+      });
+
+      const stateToReviewItem = (entry) => {
+        const state = entry.state;
+        const layout = state.layout || {};
+        return {
+          id: entry.id,
+          uType: state.uType || "div",
+          uName: state.uName || entry.id,
+          text: state.text === undefined ? null : state.text,
+          layout: {
+            xPercent: layout.xPercent,
+            yPercent: layout.yPercent,
+            widthPercent: layout.widthPercent,
+            heightPercent: layout.heightPercent
+          },
+          style: {
+            fontSizePx: state.fontSizePx,
+            textColor: state.textColor,
+            backgroundColor: state.backgroundColor
+          },
+          visible: state.visible !== false
+        };
+      };
+
+      const collectReviewData = () => {
+        syncActivePageState();
+        return {
+          schema: "neon-teahouse-ui-review/v2",
+          referenceResolution: { width: 1920, height: 1080 },
+          pages: pageDefinitions.map((definition) => ({
+            pageId: definition.id,
+            label: definition.label,
+            elements: (statesByPage.get(definition.id) || []).map(stateToReviewItem)
+          })),
+          annotations: annotations.map((annotation) => ({ ...annotation }))
+        };
+      };
+
+      const itemToElementState = (item) => {
+        const layout = item.layout || {};
+        const style = item.style || {};
+        const state = {
+          style: "",
+          text: typeof item.text === "string" ? item.text : null,
+          textColor: typeof style.textColor === "string" ? style.textColor : "#ffffff",
+          backgroundColor: typeof style.backgroundColor === "string" ? style.backgroundColor : "#000000",
+          uType: item.uType || "div",
+          uName: item.uName || item.id,
+          visible: item.visible !== false,
+          layout: {
+            xPercent: typeof layout.xPercent === "number" ? layout.xPercent : 0,
+            yPercent: typeof layout.yPercent === "number" ? layout.yPercent : 0,
+            widthPercent: typeof layout.widthPercent === "number" ? layout.widthPercent : 10,
+            heightPercent: typeof layout.heightPercent === "number" ? layout.heightPercent : 10
+          },
+          fontSizePx: typeof style.fontSizePx === "number" ? style.fontSizePx : null
+        };
+        state.style = `left:${state.layout.xPercent}%;top:${state.layout.yPercent}%;width:${state.layout.widthPercent}%;height:${state.layout.heightPercent}%;`;
+        if (state.fontSizePx !== null) state.style += `font-size:${state.fontSizePx}px;`;
+        return state;
+      };
+
+      const normalizeReviewPages = (payload) => {
+        if (!payload) return [];
+        if (Array.isArray(payload.pages)) {
+          return payload.pages.filter((page) => page && Array.isArray(page.elements)).map((page) => ({
+            pageId: page.pageId,
+            label: page.label || page.pageId,
+            elements: page.elements
+          }));
+        }
+        if (Array.isArray(payload.elements)) {
+          return [{
+            pageId: payload.pageId || activePageId,
+            label: payload.pageId || activePageId,
+            elements: payload.elements
+          }];
+        }
+        return [];
+      };
+
+      const applyReviewData = (payload) => {
+        const pages = normalizeReviewPages(payload);
+        if (pages.length === 0) return false;
+        pages.forEach((page) => {
+          if (!pageContainers.has(page.pageId)) return;
+          const elements = getPageElements(page.pageId);
+          const byId = new Map(elements.map((element) => [element.dataset.reviewId, element]));
+          const nextStates = page.elements.map((item) => {
+            const element = byId.get(item.id);
+            if (!element) return null;
+            const state = itemToElementState(item);
+            restore(element, state);
+            return { id: item.id, state };
+          }).filter(Boolean);
+          statesByPage.set(page.pageId, nextStates);
+        });
+        if (Array.isArray(payload.annotations)) {
+          annotations = payload.annotations
+            .filter((annotation) => annotation && typeof annotation.id === "string" && typeof annotation.text === "string")
+            .map((annotation) => ({ ...annotation }));
+        }
+        if (activePageId && pageContainers.has(activePageId)) {
+          renderPage(activePageId);
+        }
+        renderAnnotationList();
+        renderInspector();
+        return true;
+      };
+
+      const validateReviewData = (payload) => {
+        const issues = [];
+        const pages = normalizeReviewPages(payload);
+        pages.forEach((page) => {
+          const ids = new Set();
+          page.elements.forEach((item, index) => {
+            const label = `${page.pageId}:${item.id || `elements[${index}]`}`;
+            if (!item.id) issues.push(`${label}: 缺少 id`);
+            else if (ids.has(item.id)) issues.push(`${label}: 重复 id`);
+            else ids.add(item.id);
+            if (!item.uName) issues.push(`${label}: 缺少 uName`);
+            const layout = item.layout || {};
+            const percentages = [layout.xPercent, layout.yPercent, layout.widthPercent, layout.heightPercent];
+            if (percentages.some((value) => typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 100)) {
+              issues.push(`${label}: 布局百分比越界`);
+            }
+            if ((item.uType === "text" || item.uType === "button") && typeof item.text === "string" && !item.text.trim()) {
+              issues.push(`${label}: 文案为空`);
+            }
+          });
+        });
+        return issues;
+      };
+
+      const renderValidation = () => {
+        const issues = validateReviewData(collectReviewData());
+        validationSummary.textContent = issues.length === 0 ? "校验通过" : `${issues.length} 个问题`;
+        validationSummary.dataset.state = issues.length === 0 ? "ok" : "error";
+        validationOutput.hidden = issues.length === 0;
+        validationOutput.innerHTML = "";
+        issues.slice(0, 8).forEach((issue) => {
+          const row = document.createElement("div");
+          const mark = document.createElement("strong");
+          mark.textContent = "待修";
+          const text = document.createElement("span");
+          text.textContent = issue;
+          row.append(mark, text);
+          validationOutput.appendChild(row);
+        });
+      };
+
+      const getPageLabel = (pageId) => getPageDefinition(pageId)?.label || pageId;
+
+      const updateAnnotationTarget = () => {
+        if (!annotationTarget) return;
+        const pageLabel = getPageLabel(activePageId);
+        annotationTarget.textContent = selected ? `${pageLabel} · ${selected.dataset.uName}` : pageLabel;
+      };
+
+      const renderAnnotationList = () => {
+        annotationList.innerHTML = "";
+        if (annotations.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "nur-archive-row";
+          empty.textContent = "暂无批注";
+          annotationList.appendChild(empty);
+          return;
+        }
+        annotations.forEach((annotation) => {
+          const row = document.createElement("div");
+          row.className = "nur-archive-row";
+          const content = document.createElement("span");
+          const target = annotation.reviewId || "当前页";
+          content.textContent = `${getPageLabel(annotation.pageId)} · ${target}: ${annotation.text}`;
+          const deleteButton = document.createElement("button");
+          deleteButton.type = "button";
+          deleteButton.className = "nur-mini-button";
+          deleteButton.textContent = "删除";
+          deleteButton.addEventListener("click", () => {
+            annotations = annotations.filter((item) => item.id !== annotation.id);
+            renderAnnotationList();
+            persistDraft();
+            status.textContent = "已删除批注";
+            status.dataset.state = "synced";
+          });
+          row.append(content, deleteButton);
+          annotationList.appendChild(row);
+        });
+      };
+
+      const diffStates = (baseline, current) => {
+        const before = new Map(baseline.map((entry) => [entry.id, entry.state]));
+        const after = new Map(current.map((entry) => [entry.id, entry.state]));
+        const ids = new Set([...before.keys(), ...after.keys()]);
+        const normalizeDiffValue = (value) => {
+          if (value === null || value === undefined) return null;
+          if (typeof value === "number" && Number.isNaN(value)) return null;
+          return value;
+        };
+        const fieldLabels = {
+          text: "文案",
+          xPercent: "X",
+          yPercent: "Y",
+          widthPercent: "宽度",
+          heightPercent: "高度",
+          fontSizePx: "字号",
+          textColor: "文字色",
+          backgroundColor: "背景色",
+          visible: "显隐"
+        };
+        const changes = [];
+        ids.forEach((id) => {
+          const previous = before.get(id);
+          const next = after.get(id);
+          if (!previous) {
+            changes.push({ id, field: "element", label: "元素", before: "不存在", after: "新增" });
+            return;
+          }
+          if (!next) {
+            changes.push({ id, field: "element", label: "元素", before: "存在", after: "已删除" });
+            return;
+          }
+          Object.keys(fieldLabels).forEach((field) => {
+            const previousValue = field === "xPercent" || field === "yPercent" || field === "widthPercent" || field === "heightPercent"
+              ? previous.layout?.[field]
+              : previous[field];
+            const nextValue = field === "xPercent" || field === "yPercent" || field === "widthPercent" || field === "heightPercent"
+              ? next.layout?.[field]
+              : next[field];
+            if (normalizeDiffValue(previousValue) !== normalizeDiffValue(nextValue)) {
+              changes.push({
+                id,
+                field,
+                label: fieldLabels[field],
+                before: previousValue,
+                after: nextValue
+              });
+            }
+          });
+        });
+        return changes;
+      };
+
+      const renderSnapshotDiff = (changes) => {
+        if (!compareBaseline) {
+          snapshotDiffOutput.hidden = true;
+          snapshotDiffOutput.innerHTML = "";
+          return;
+        }
+        snapshotDiffOutput.hidden = false;
+        snapshotDiffOutput.innerHTML = "";
+        if (compareBaseline.pageId !== activePageId) {
+          const row = document.createElement("div");
+          const mark = document.createElement("strong");
+          mark.textContent = "提示";
+          const text = document.createElement("span");
+          text.textContent = `基线来自“${getPageLabel(compareBaseline.pageId)}”，请切换到该页面后对比。`;
+          row.append(mark, text);
+          snapshotDiffOutput.appendChild(row);
+          return;
+        }
+        if (!changes || changes.length === 0) {
+          const row = document.createElement("div");
+          const mark = document.createElement("strong");
+          mark.textContent = "一致";
+          const text = document.createElement("span");
+          text.textContent = "当前页与基线一致。";
+          row.append(mark, text);
+          snapshotDiffOutput.appendChild(row);
+          return;
+        }
+        changes.slice(0, 30).forEach((change) => {
+          const row = document.createElement("div");
+          const mark = document.createElement("strong");
+          mark.textContent = change.id;
+          const text = document.createElement("span");
+          text.textContent = `${change.label}: ${String(change.before)} → ${String(change.after)}`;
+          row.append(mark, text);
+          snapshotDiffOutput.appendChild(row);
+        });
+      };
+
+      const captureSnapshot = () => {
+        syncActivePageState();
+        compareBaseline = {
+          pageId: activePageId,
+          states: cloneStates(statesByPage.get(activePageId) || [])
+        };
+        renderSnapshotDiff([]);
+        status.textContent = "已保存对比基线";
+        status.dataset.state = "synced";
+      };
+
+      const compareSnapshot = () => {
+        if (!compareBaseline) {
+          status.textContent = "请先保存对比基线";
+          status.dataset.state = "dirty";
+          return;
+        }
+        if (compareBaseline.pageId !== activePageId) {
+          renderSnapshotDiff(null);
+          return;
+        }
+        syncActivePageState();
+        const current = cloneStates(statesByPage.get(activePageId) || []);
+        renderSnapshotDiff(diffStates(compareBaseline.states, current));
+      };
+
+      const clearSnapshot = () => {
+        compareBaseline = null;
+        renderSnapshotDiff(null);
+        status.textContent = "已清除对比基线";
+        status.dataset.state = "synced";
+      };
+
+      const renderMatrixDiff = (changesByPage) => {
+        if (!matrixBaseline) {
+          matrixDiffOutput.hidden = true;
+          matrixDiffOutput.innerHTML = "";
+          return;
+        }
+        matrixDiffOutput.hidden = false;
+        matrixDiffOutput.innerHTML = "";
+        const pageChanges = {};
+        let totalChanges = 0;
+        pageDefinitions.forEach((definition) => {
+          const changes = changesByPage?.[definition.id] || [];
+          pageChanges[definition.id] = changes;
+          totalChanges += changes.length;
+        });
+
+        const grid = document.createElement("div");
+        grid.className = "nur-matrix-grid";
+        pageDefinitions.forEach((definition) => {
+          const changes = pageChanges[definition.id];
+          const cell = document.createElement("button");
+          cell.type = "button";
+          cell.className = "nur-matrix-cell";
+          cell.dataset.level = changes.length > 0 ? "changed" : "same";
+          const label = document.createElement("span");
+          label.textContent = definition.label;
+          const count = document.createElement("small");
+          count.textContent = changes.length > 0 ? `${changes.length} 处差异` : "无变化";
+          cell.append(label, count);
+          cell.addEventListener("click", () => renderPage(definition.id));
+          grid.appendChild(cell);
+        });
+        matrixDiffOutput.appendChild(grid);
+
+        const detailHeading = document.createElement("strong");
+        detailHeading.textContent = "差异明细";
+        matrixDiffOutput.appendChild(detailHeading);
+
+        if (totalChanges === 0) {
+          const summary = document.createElement("div");
+          summary.textContent = "六页内容均与全站基线一致。";
+          matrixDiffOutput.appendChild(summary);
+          return;
+        }
+
+        pageDefinitions.forEach((definition) => {
+          const changes = pageChanges[definition.id];
+          if (changes.length === 0) return;
+          const section = document.createElement("div");
+          const heading = document.createElement("strong");
+          heading.textContent = definition.label;
+          section.appendChild(heading);
+          changes.slice(0, 30).forEach((change) => {
+            const row = document.createElement("div");
+            const mark = document.createElement("strong");
+            mark.textContent = change.id;
+            const text = document.createElement("span");
+            text.textContent = `${change.label}: ${String(change.before)} → ${String(change.after)}`;
+            row.append(mark, text);
+            section.appendChild(row);
+          });
+          matrixDiffOutput.appendChild(section);
+        });
+      };
+
+      const captureMatrix = () => {
+        syncActivePageState();
+        matrixBaseline = snapshotAll();
+        renderMatrixDiff({});
+        status.textContent = "已保存全站基线";
+        status.dataset.state = "synced";
+      };
+
+      const compareMatrix = () => {
+        if (!matrixBaseline) {
+          status.textContent = "请先保存全站基线";
+          status.dataset.state = "dirty";
+          return;
+        }
+        syncActivePageState();
+        const currentAll = snapshotAll();
+        const changesByPage = {};
+        pageDefinitions.forEach((definition) => {
+          changesByPage[definition.id] = diffStates(matrixBaseline[definition.id] || [], currentAll[definition.id] || []);
+        });
+        renderMatrixDiff(changesByPage);
+        status.textContent = "已生成跨页差异矩阵";
+        status.dataset.state = "synced";
+      };
+
+      const clearMatrix = () => {
+        matrixBaseline = null;
+        renderMatrixDiff(null);
+        status.textContent = "已清除全站基线";
+        status.dataset.state = "synced";
+      };
+
+      const addAnnotation = () => {
+        const text = annotationInput.value.trim();
+        if (!text) {
+          status.textContent = "批注内容为空";
+          status.dataset.state = "dirty";
+          return;
+        }
+        annotations.unshift({
+          id: `a${Date.now()}`,
+          pageId: activePageId,
+          reviewId: selected?.dataset.reviewId || null,
+          text,
+          createdAt: new Date().toISOString()
+        });
+        annotationInput.value = "";
+        renderAnnotationList();
+        persistDraft();
+        status.textContent = "已添加批注";
+        status.dataset.state = "synced";
+      };
+
+      const renderArchiveList = () => {
+        archiveList.innerHTML = "";
+        archiveVersions.forEach((version) => {
+          const row = document.createElement("div");
+          row.className = "nur-archive-row";
+          const time = document.createElement("time");
+          time.textContent = new Date(version.createdAt).toLocaleString("zh-CN", { hour12: false });
+          const restoreButton = document.createElement("button");
+          restoreButton.type = "button";
+          restoreButton.className = "nur-mini-button";
+          restoreButton.textContent = "恢复";
+          restoreButton.addEventListener("click", () => {
+            if (!version.draft) return;
+            pushHistory();
+            applyReviewData(version.draft);
+            setDirty();
+          });
+          row.append(time, restoreButton);
+          archiveList.appendChild(row);
+        });
+      };
+
+      const archiveCurrent = () => {
+        archiveVersions.unshift({
+          id: `v${Date.now()}`,
+          createdAt: new Date().toISOString(),
+          draft: collectReviewData()
+        });
+        if (archiveVersions.length > 20) archiveVersions.pop();
+        renderArchiveList();
+        persistDraft();
+        status.textContent = "已归档";
+        status.dataset.state = "synced";
+      };
+
+      const downloadJson = (payload, filename) => {
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      };
+
+      const collectAIToUGUIBundle = () => {
+        syncActivePageState();
+        const buildNode = (pageId, descriptor) => {
+          const entry = (statesByPage.get(pageId) || []).find((item) => item.id === descriptor.reviewId);
+          const state = entry?.state || {
+            style: descriptor.style || {},
+            text: descriptor.text,
+            textColor: descriptor.textColor || "#ffffff",
+            backgroundColor: descriptor.backgroundColor || "#000000",
+            uType: descriptor.uType,
+            uName: descriptor.uName,
+            visible: true,
+            layout: {
+              xPercent: Number.parseFloat(descriptor.style?.left),
+              yPercent: Number.parseFloat(descriptor.style?.top),
+              widthPercent: Number.parseFloat(descriptor.style?.width),
+              heightPercent: Number.parseFloat(descriptor.style?.height)
+            },
+            fontSizePx: Number.parseFloat(descriptor.style?.fontSize) || null
+          };
+          const layout = state.layout || {};
+          const styleString = [
+            `left:${layout.xPercent ?? 0}%`,
+            `top:${layout.yPercent ?? 0}%`,
+            `width:${layout.widthPercent ?? 10}%`,
+            `height:${layout.heightPercent ?? 10}%`
+          ].join(";");
+          const text = state.text === undefined ? null : state.text;
+          return {
+            name: state.uName || descriptor.uName || descriptor.reviewId,
+            tag: descriptor.tag === "img" ? "img" : "div",
+            controlType: descriptor.uType || "Div",
+            role: descriptor.uType,
+            elementId: descriptor.reviewId,
+            attributes: [
+              { name: "data-u-name", value: state.uName || descriptor.uName || "" },
+              { name: "data-u-type", value: descriptor.uType || "Div" },
+              { name: "style", value: styleString }
+            ],
+            classes: descriptor.className ? [descriptor.className] : [],
+            text,
+            layout: {
+              position: "absolute",
+              left: `${layout.xPercent ?? 0}%`,
+              top: `${layout.yPercent ?? 0}%`,
+              width: `${layout.widthPercent ?? 10}%`,
+              height: `${layout.heightPercent ?? 10}%`
+            },
+            visual: {
+              backgroundColor: state.backgroundColor || "#000000",
+              opacity: state.visible === false ? "0" : "1"
+            },
+            textStyle: {
+              color: state.textColor || "#ffffff",
+              fontSize: state.fontSizePx ? `${state.fontSizePx}px` : null
+            },
+            children: (descriptor.children || []).map((child) => buildNode(pageId, child))
+          };
+        };
+
+        return {
+          schemaVersion: "1.0",
+          site: {
+            siteId: "neon-teahouse-ui",
+            displayName: "霓虹茶舍 UI",
+            designWidth: 1920,
+            designHeight: 1080
+          },
+          theme: {
+            themeId: "neon-teahouse-theme",
+            displayName: "霓虹茶舍主题",
+            pageBackground: "#0a1117",
+            panelFill: "#040d13",
+            cardFill: "#05141a",
+            buttonFill: "#2d0e22",
+            accentColor: "#79e6ef",
+            textPrimary: "#f0f7f8",
+            textSecondary: "#a7b0bd",
+            outlineColor: "rgba(121,230,239,0.58)",
+            shadowColor: "rgba(0,0,0,0.42)"
+          },
+          pages: pageDefinitions.map((definition) => ({
+            pageId: definition.id,
+            runtimePageId: definition.id,
+            displayName: definition.label,
+            prefabName: definition.prefabName,
+            targetLayer: "Normal",
+            logicalPath: `UI/Generated/neon-teahouse-ui/${definition.prefabName}`,
+            root: {
+              name: `${definition.id}Root`,
+              tag: "div",
+              controlType: "Div",
+              role: "page",
+              attributes: [{ name: "data-ui-page", value: definition.id }],
+              classes: ["nur-page-content"],
+              layout: {
+                position: "absolute",
+                left: "0%",
+                top: "0%",
+                width: "100%",
+                height: "100%"
+              },
+              visual: { backgroundColor: "#0a1117", opacity: "1" },
+              textStyle: {},
+              children: definition.elements.map((descriptor) => buildNode(definition.id, descriptor))
+            }
+          }))
+        };
+      };
+
+      const parseStoryText = (code) => {
+        try {
+          const evaluate = new Function("window", `${code}\nreturn window.NeonTeahouseStory;`);
+          return evaluate({}) || null;
+        } catch {
+          return null;
+        }
+      };
+
+      const setElementText = (pageId, reviewId, text) => {
+        const states = statesByPage.get(pageId);
+        if (!states) return;
+        const entry = states.find((item) => item.id === reviewId);
+        if (!entry) return;
+        entry.state.text = String(text ?? "");
+        if (pageId === activePageId) {
+          const element = currentEditables.find((item) => item.dataset.reviewId === reviewId);
+          const copy = element?.querySelector("[data-review-copy]");
+          if (copy) copy.textContent = String(text ?? "");
+        }
+      };
+
+      const applyStorySeed = (story) => {
+        if (!story || typeof story !== "object") return false;
+        const days = story.days || {};
+        const dayKeys = Object.keys(days);
+        const day = days[dayKeys[0]] || Object.values(days)[0] || null;
+        const endings = story.endings || {};
+        const ending = Object.values(endings)[0] || null;
+        if (!day && !ending) return false;
+
+        const previewLines = day?.conversation?.previewLines || [];
+        const choices = day?.conversation?.choices || [];
+        const introLines = day?.introLines || [];
+        const teaProfile = day?.teaProfile || {};
+        const ideal = teaProfile.ideal || {};
+        const gate = day?.gate || {};
+        const backroom = day?.backroom || {};
+        const dayNumber = dayKeys[0] || String(day?.id || "1");
+
+        setElementText("01-dialogue-panel", "sceneDayLabel", day?.title || "DAY 1 · 慈恩寺异稿");
+        setElementText("01-dialogue-panel", "speakerName", previewLines[0]?.speaker || introLines[introLines.length - 1]?.speaker || "椎名立希");
+        setElementText("01-dialogue-panel", "dialogueContent", day?.conversation?.prompt || previewLines[0]?.text || day?.description || "如果两份记忆都足够诚实，为什么系统只允许留下一份？");
+        setElementText("01-dialogue-panel", "dialogueChoiceA", choices[0]?.label || "先保留差异，再追问来源");
+        setElementText("01-dialogue-panel", "dialogueChoiceB", choices[1]?.label || "先选择可信的一份记录");
+
+        setElementText("02-mixing-panel", "mixingTitle", `${day?.title || "第一夜"} · 茶饮调制`);
+        setElementText("02-mixing-panel", "mixingHint", teaProfile.hint || "她需要温暖与安静，但太强的旧香会让别人的人生盖过她。");
+        setElementText("02-mixing-panel", "mixingRecipeA", ideal.base ? `茶底：${ideal.base}` : "茶底：白茶");
+        setElementText("02-mixing-panel", "mixingRecipeB", ideal.addon ? `辅料：${ideal.addon}` : "辅料：桂花");
+        setElementText("02-mixing-panel", "mixingRecipeC", Array.isArray(ideal.temperature) ? `水温：${ideal.temperature[0]}-${ideal.temperature[1]}℃` : "水温：70-82℃");
+        setElementText("02-mixing-panel", "mixingRecipeD", Array.isArray(ideal.steep) ? `冲泡：${ideal.steep[0]}-${ideal.steep[1]}s` : "冲泡：30-55s");
+
+        setElementText("03-hud", "hudDayValue", String(dayNumber).replace("day", ""));
+        setElementText("03-hud", "hudTimeValue", day?.clock || "OPEN 19:40");
+        setElementText("03-hud", "hudWeatherIcon", String(day?.art?.backgroundAlt || "").includes("雨") ? "雨夜" : "长安");
+
+        setElementText("04-announcement", "announcementTitle", gate.title || day?.title || "第一夜 · 慈恩寺的异稿");
+        setElementText("04-announcement", "announcementDate", day?.clock || "OPEN 19:40");
+        setElementText("04-announcement", "announcementBody", gate.description || day?.description || "旧灯第一次正式营业。");
+
+        setElementText("05-backlog", "backlogTitle", backroom.recapTitle || gate.title || "慈恩寺的异稿");
+        setElementText("05-backlog", "backlogLine1", backroom.recap || day?.description || "慈恩寺塔唱和留下不同而诚实的记载。");
+        setElementText("05-backlog", "backlogLine2", day?.observation?.text || day?.description || "长崎素世认出千早爱音原始手账的针脚。");
+        setElementText("05-backlog", "backlogLine3", backroom.clue || day?.clue || "异稿、旧纸针脚，以及第一次被说出的“千早爱音”。");
+
+        if (ending) {
+          setElementText("06-ending", "endingLabel", ending.label || "ENDING A / 留灯");
+          setElementText("06-ending", "endingTitle", ending.title || "沿着灯继续寻找");
+          setElementText("06-ending", "endingText", ending.text || "椎名立希没有找到千早爱音，也没有把裂隙中的未知写成幸存证明。");
+          setElementText("06-ending", "endingQuote", ending.quote || "我寻找的不是过去替我留下的答案，而是她仍可能拥有的选择。");
+        }
+        renderInspector();
+        return true;
+      };
+
+      const parseCssDeclarations = (styleText) => {
+        const declarations = {};
+        String(styleText || "").split(";").forEach((part) => {
+          const separatorIndex = part.indexOf(":");
+          if (separatorIndex <= 0) return;
+          const property = part.slice(0, separatorIndex).trim();
+          const value = part.slice(separatorIndex + 1).trim();
+          if (property && value) declarations[property] = value;
+        });
+        return declarations;
+      };
+
+      const styleValueToPercent = (value, designSize, fallback) => {
+        if (value === undefined || value === null || value === "") return fallback;
+        const number = Number.parseFloat(value);
+        if (!Number.isFinite(number)) return fallback;
+        if (String(value).trim().endsWith("%")) return number;
+        return Math.max(0, Math.min(100, (number / designSize) * 100));
+      };
+
+      const descriptorClassByType = (uType) => {
+        if (uType === "button") return "nur-choice";
+        if (uType === "image") return "nur-character";
+        if (uType === "div" || uType === "scroll") return "nur-dialogue-panel";
+        return "nur-body-copy";
+      };
+
+      const convertHtmlElementToDescriptor = (element, designSize, usedIds) => {
+        const uType = element.getAttribute("data-u-type") || "div";
+        const uName = element.getAttribute("data-u-name") || `element${usedIds.size + 1}`;
+        const baseId = element.getAttribute("data-review-id") || `html-${uName}`;
+        let reviewId = baseId;
+        let suffix = 1;
+        while (usedIds.has(reviewId)) {
+          suffix += 1;
+          reviewId = `${baseId}-${suffix}`;
+        }
+        usedIds.add(reviewId);
+
+        const declarations = parseCssDeclarations(element.getAttribute("style"));
+        const left = styleValueToPercent(declarations.left, designSize.width, 0);
+        const top = styleValueToPercent(declarations.top, designSize.height, 0);
+        const width = styleValueToPercent(declarations.width, designSize.width, 10);
+        const height = styleValueToPercent(declarations.height, designSize.height, 10);
+        const fontSize = Number.parseFloat(declarations["font-size"]);
+        const isText = uType === "text" || uType === "button";
+        const text = isText ? element.textContent.trim() : null;
+        const children = Array.from(element.children)
+          .filter((child) => child.hasAttribute("data-u-type"))
+          .map((child) => convertHtmlElementToDescriptor(child, designSize, usedIds));
+
+        return {
+          reviewId,
+          uType,
+          uName,
+          className: descriptorClassByType(uType),
+          tag: uType === "image" ? "img" : "div",
+          text,
+          textColor: declarations.color || "#f0f7f8",
+          backgroundColor: declarations["background-color"] || "#040d13",
+          style: {
+            left: `${left}%`,
+            top: `${top}%`,
+            width: `${width}%`,
+            height: `${height}%`,
+            fontSize: Number.isFinite(fontSize) ? `${Math.max(6, Math.min(72, fontSize))}px` : "12px"
+          },
+          src: element.getAttribute("src") || null,
+          alt: element.getAttribute("alt") || "",
+          children
+        };
+      };
+
+      const firstLeafReviewId = (descriptors) => {
+        for (const descriptor of descriptors) {
+          if (descriptor.text !== null && descriptor.text !== undefined) return descriptor.reviewId;
+          const childId = firstLeafReviewId(descriptor.children || []);
+          if (childId) return childId;
+        }
+        return descriptors[0]?.reviewId || null;
+      };
+
+      const importHtmlSliceText = (text) => {
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        const designSize = { width: 1920, height: 1080 };
+        const allCandidates = Array.from(doc.querySelectorAll("[data-u-type][data-u-name]"));
+        if (allCandidates.length === 0) return null;
+        const topLevel = allCandidates.filter((element) => !element.parentElement?.closest("[data-u-type]"));
+        const roots = topLevel.length > 0 ? topLevel : allCandidates;
+        const usedIds = new Set();
+        const elements = roots.map((element) => convertHtmlElementToDescriptor(element, designSize, usedIds));
+        if (elements.length === 0) return null;
+
+        const pageId = `html-slice-${Date.now()}`;
+        const definition = {
+          id: pageId,
+          label: "HTML 切片",
+          title: "HTML 切片审核",
+          defaultReviewId: firstLeafReviewId(elements),
+          prefabName: "HtmlSlicePanel",
+          elements
+        };
+        pageDefinitions.push(definition);
+
+        const container = document.createElement("div");
+        container.dataset.page = pageId;
+        container.hidden = true;
+        elements.forEach((descriptor) => container.appendChild(createPageElement(descriptor)));
+        canvas.appendChild(container);
+        pageContainers.set(pageId, container);
+
+        const defaults = snapshotElements(getPageElements(pageId));
+        defaultsByPage.set(pageId, defaults);
+        statesByPage.set(pageId, cloneStates(defaults));
+        renderPage(pageId);
+        renderValidation();
+        setDirty();
+        return pageId;
+      };
+
+      snapshotCaptureButton.addEventListener("click", captureSnapshot);
+      snapshotCompareButton.addEventListener("click", compareSnapshot);
+      snapshotClearButton.addEventListener("click", clearSnapshot);
+      matrixCaptureButton.addEventListener("click", captureMatrix);
+      matrixCompareButton.addEventListener("click", compareMatrix);
+      matrixClearButton.addEventListener("click", clearMatrix);
+      addAnnotationButton.addEventListener("click", addAnnotation);
+      annotationInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") addAnnotation();
+      });
+      validateButton.addEventListener("click", renderValidation);
+      archiveButton.addEventListener("click", archiveCurrent);
+      archiveCurrentButton.addEventListener("click", archiveCurrent);
+      exportButton.addEventListener("click", () => {
+        downloadJson(collectReviewData(), `neon-teahouse-ui-review-${new Date().toISOString().slice(0, 10)}.json`);
+        status.textContent = "已导出 JSON";
+        status.dataset.state = "synced";
+      });
+      exportAIToUGUIButton.addEventListener("click", () => {
+        downloadJson(collectAIToUGUIBundle(), `neon-teahouse-aitougui-${new Date().toISOString().slice(0, 10)}.json`);
+        status.textContent = "已导出 AIToUGUI";
+        status.dataset.state = "synced";
+      });
+      loadStoryButton.addEventListener("click", () => storyFile.click());
+      importHtmlSliceButton.addEventListener("click", () => htmlSliceFile.click());
+      htmlSliceFile.addEventListener("change", async () => {
+        const file = htmlSliceFile.files && htmlSliceFile.files[0];
+        if (!file) return;
+        try {
+          const pageId = importHtmlSliceText(await file.text());
+          if (!pageId) throw new Error("html slice parse failed");
+          pushHistory();
+          status.textContent = "已导入 HTML 切片";
+          status.dataset.state = "dirty";
+        } catch {
+          status.textContent = "HTML 切片解析失败";
+          status.dataset.state = "dirty";
+        } finally {
+          htmlSliceFile.value = "";
+        }
+      });
+      storyFile.addEventListener("change", async () => {
+        const file = storyFile.files && storyFile.files[0];
+        if (!file) return;
+        try {
+          const story = parseStoryText(await file.text());
+          if (!story) throw new Error("story.js parse failed");
+          pushHistory();
+          applyStorySeed(story);
+          renderValidation();
+          setDirty();
+          status.textContent = "已从 story.js 生成";
+          status.dataset.state = "dirty";
+        } catch {
+          status.textContent = "story.js 解析失败";
+          status.dataset.state = "dirty";
+        } finally {
+          storyFile.value = "";
+        }
+      });
+      importButton.addEventListener("click", () => importFile.click());
+      importFile.addEventListener("change", async () => {
+        const file = importFile.files && importFile.files[0];
+        if (!file) return;
+        try {
+          const payload = JSON.parse(await file.text());
+          pushHistory();
+          applyReviewData(payload);
+          renderValidation();
+          setDirty();
+        } catch {
+          status.textContent = "导入失败";
+          status.dataset.state = "dirty";
+        } finally {
+          importFile.value = "";
+        }
+      });
+
+      syncButton.addEventListener("click", async () => {
+        const payload = collectReviewData();
+        syncButton.disabled = true;
+        syncButton.querySelector("span").textContent = "同步中";
+        try {
+          if (window.openai && typeof window.openai.sendFollowUpMessage === "function") {
+            await window.openai.sendFollowUpMessage({
+              title: "同步 UI 审核草稿",
+              prompt: [
+                "请接收下面的 UI 审核草稿数据。先不要判定通过，等待我在对话中明确说“通过”。",
+                "",
+                JSON.stringify(payload, null, 2)
+              ].join(String.fromCharCode(10))
+            });
+          } else {
+            downloadJson(payload, `neon-teahouse-ui-review-${new Date().toISOString().slice(0, 10)}.json`);
+          }
+          status.textContent = "已同步";
+          status.dataset.state = "synced";
+        } finally {
+          syncButton.disabled = false;
+          syncButton.querySelector("span").textContent = "同步草稿";
+        }
+      });
+
+      buildPageContainers();
+      pageContainers.forEach((container, pageId) => {
+        const defaults = snapshotElements(getPageElements(pageId));
+        defaultsByPage.set(pageId, defaults);
+        statesByPage.set(pageId, cloneStates(defaults));
+      });
+      renderPage(activePageId);
+
+      const persisted = loadPersisted();
+      if (persisted) {
+        archiveVersions = Array.isArray(persisted.archives) ? persisted.archives : [];
+        if (persisted.draft) applyReviewData(persisted.draft);
+        if (Array.isArray(persisted.annotations)) {
+          annotations = persisted.annotations
+            .filter((annotation) => annotation && typeof annotation.id === "string" && typeof annotation.text === "string")
+            .map((annotation) => ({ ...annotation }));
+        }
+        renderArchiveList();
+        renderAnnotationList();
+        status.textContent = "已加载本地草稿";
+        status.dataset.state = "dirty";
+      }
+      renderValidation();
+      updateHistoryButtons();
+    })();
+  </script>
+</div>
