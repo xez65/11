@@ -1,0 +1,14 @@
+{
+  "projects": [
+    {
+      "projectRoot": "C:/Users/Administrator/My project (2)",
+      "engine": "unity",
+      "mappingFile": "unity-My-project-2.json"
+    },
+    {
+      "projectRoot": "C:/Users/Administrator/AppData/Local/Temp/engine-ui-test-40215e40f0e7473eb297879a179f6b6a",
+      "engine": "unity",
+      "mappingFile": "unity-engine-ui-test-40215e40f0e7473eb297879a179f6b6a.json"
+    }
+  ]
+}
