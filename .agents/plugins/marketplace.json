@@ -1,0 +1,20 @@
+{
+  "name": "neon-teahouse-team",
+  "interface": {
+    "displayName": "霓虹茶舍 Team"
+  },
+  "plugins": [
+    {
+      "name": "neon-teahouse-ui-editor",
+      "source": {
+        "source": "local",
+        "path": "./plugins/neon-teahouse-ui-editor"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Game Development"
+    }
+  ]
+}
