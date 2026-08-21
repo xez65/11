@@ -1,0 +1,23 @@
+{
+  "name": "neon-teahouse-ui-editor",
+  "version": "0.1.0",
+  "description": "Bundled UI review editor for reviewing and editing game HTML slices.",
+  "author": {
+    "name": "Neon Teahouse Team"
+  },
+  "keywords": ["UI editor", "Unity", "UGUI", "AIToUGUI", "HTML slice", "UI review"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "霓虹茶舍 UI 编辑器",
+    "shortDescription": "在对话内审核并编辑游戏 HTML 界面切片。",
+    "longDescription": "打开随插件打包的 UI 审核编辑器，导入实际 HTML 切片进行文案、布局、颜色和显隐审核，并导出通用审核 JSON 或 AIToUGUI Lite bundle。",
+    "developerName": "Neon Teahouse Team",
+    "category": "Game Development",
+    "capabilities": ["Interactive"],
+    "defaultPrompt": [
+      "打开 UI 编辑器，审核当前页面切片。",
+      "导入这个 HTML 界面切片并进行 UI 审核。",
+      "把审核结果导出为 AIToUGUI JSON。"
+    ]
+  }
+}
