@@ -1,0 +1,25 @@
+{
+  "engine": "unity",
+  "projectRoot": "C:/Users/Administrator/AppData/Local/Temp/engine-ui-test-40215e40f0e7473eb297879a179f6b6a",
+  "uiFiles": [
+    "Assets/UI/Dialogue.uss"
+  ],
+  "unsupported": false,
+  "note": "",
+  "elements": {
+    "dialoguePanelRoot": {
+      "file": "Assets/UI/Dialogue.uss",
+      "kind": "css",
+      "selector": ".DialoguePanel",
+      "properties": {
+        "backgroundColor": "background",
+        "textColor": "color",
+        "fontSizePx": "font-size",
+        "xPercent": "left",
+        "yPercent": "top",
+        "widthPercent": "width",
+        "heightPercent": "height"
+      }
+    }
+  }
+}
